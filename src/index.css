@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #1a2b6d;
+  --navy-dark: #1e1e1e;
+  --navy-light: #2a3f99;
+  --white: #ffffff;
+  --text-primary: #1e1e1e;
+  --text-secondary: #4a5478;
+  --text-muted: #8d97b8;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --shadow-sm: 0 1px 4px rgba(26, 43, 109, 0.08);
+  --shadow-md: 0 4px 20px rgba(26, 43, 109, 0.12);
+  --shadow-lg: 0 12px 48px rgba(26, 43, 109, 0.18);
+  --shadow-xl: 0 24px 80px rgba(26, 43, 109, 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #ffffff;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(26, 43, 109, 0.18);
+  color: var(--navy-dark);
+}
+
+@layer components {
+  .ox-container {
+    @apply mx-auto max-w-[1240px] px-[clamp(1.25rem,5vw,3rem)];
+  }
+
+  .ox-section {
+    @apply py-24;
+  }
+
+  .ox-section-soft {
+    @apply bg-[#f5f7fb];
+  }
+
+  .ox-eyebrow {
+    @apply mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-[var(--navy)];
+  }
+
+  .ox-eyebrow::before {
+    content: '';
+    @apply h-0.5 w-7 rounded-full bg-[var(--navy)];
+  }
+
+  .ox-eyebrow-on-dark {
+    @apply text-white/72;
+  }
+
+  .ox-eyebrow-on-dark::before {
+    @apply bg-white/72;
+  }
+
+  .ox-title-xl {
+    @apply font-[var(--font-display)] text-[clamp(2.4rem,5vw,4rem)] font-semibold leading-tight text-slate-950;
+  }
+
+  .ox-title-lg {
+    @apply font-[var(--font-display)] text-[clamp(2rem,4vw,3.2rem)] font-semibold leading-tight text-slate-950;
+  }
+
+  .ox-subtitle {
+    @apply text-lg leading-8 text-[var(--text-secondary)];
+  }
+
+  .ox-body {
+    @apply text-[1.05rem] leading-8 text-[var(--text-secondary)];
+  }
+
+  .ox-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-[var(--navy)] px-8 py-4 text-sm font-bold text-white shadow-[var(--shadow-md)] transition hover:-translate-y-0.5 hover:bg-[var(--navy-light)];
+  }
+
+  .ox-btn-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-white px-8 py-4 text-sm font-bold text-[var(--navy)] shadow-lg transition hover:-translate-y-0.5 hover:bg-slate-100;
+  }
+
+  .ox-btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border-2 border-[var(--navy)] px-8 py-4 text-sm font-bold text-[var(--navy)] transition hover:-translate-y-0.5 hover:bg-[var(--navy)] hover:text-white;
+  }
+
+  .ox-card {
+    @apply rounded-xl border border-[rgba(26,43,109,0.08)] bg-white shadow-[var(--shadow-sm)];
+  }
+
+  .ox-card-hover {
+    @apply transition duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow-md)];
+  }
+
+  .ox-icon-tile {
+    @apply flex h-12 w-12 items-center justify-center rounded-xl bg-[rgba(26,43,109,0.08)] text-[var(--navy)];
+  }
+
+  .ox-field {
+    @apply w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--navy)] focus:ring-4 focus:ring-[rgba(26,43,109,0.12)];
+  }
+}
