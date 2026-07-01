@@ -1,6 +1,7 @@
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo+wordmark.png";
+import { LOCATIONS, MONTANA_PHONE } from "../../data/company";
 
 const SERVICES = [
   { label: "Windows", to: "/windows" },
@@ -12,20 +13,12 @@ const SERVICES = [
   { label: "Contact", to: "/contact" },
 ];
 
-const OFFICES = [
-  {
-    city: "Lehi, UT",
-    address: "123 Industrial Pkwy, Lehi, Utah 84043",
-    phone: "(801) 000-0000",
-    email: "lehi@oxglass.com",
-  },
-  {
-    city: "",
-    address: "456 Glass Ave,",
-    phone: "(406) 000-0000",
-    email: "@oxglass.com",
-  },
-];
+const OFFICES = LOCATIONS.map((loc) => ({
+  city: loc.label,
+  address: loc.address ?? "",
+  phone: loc.phones[0],
+  email: loc.email,
+}));
 
 export default function Footer() {
   return (
@@ -41,8 +34,7 @@ export default function Footer() {
             </p>
             <p className="mt-4 max-w-md text-sm leading-7 text-white/62">
               Window installation specialists delivering premium products and
-              superior installation for new construction projects across the
-              Intermountain West.
+              superior installation for new construction projects across Utah.
             </p>
           </div>
 
@@ -99,6 +91,23 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+
+          <div>
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.14em] text-white">
+              Montana
+            </h3>
+            <ul className="space-y-4 text-sm leading-6 text-white/62">
+              <li className="flex gap-3">
+                <Phone size={16} className="mt-1 shrink-0 text-white" />
+                <a
+                  className="transition hover:text-white"
+                  href={`tel:${MONTANA_PHONE.replace(/\D/g, "")}`}
+                >
+                  {MONTANA_PHONE}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 

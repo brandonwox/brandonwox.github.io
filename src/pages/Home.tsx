@@ -19,7 +19,9 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import FadeIn from "../components/ui/FadeIn";
+import FaqAccordion from "../components/ui/FaqAccordion";
 import { PROJECTS } from "../data/projects";
+import { FAQS } from "../data/company";
 
 const SERVICES = [
   {
@@ -152,6 +154,33 @@ const PROCESS_STEPS = [
   },
 ];
 
+const SCOPE_SEQUENCE = [
+  {
+    icon: <HomeIcon size={22} />,
+    phase: "Phase 1",
+    title: "Windows",
+    desc: "Energy-efficient window packages installed first to dry in the building.",
+  },
+  {
+    icon: <Building2 size={22} />,
+    phase: "Phase 2",
+    title: "Storefronts",
+    desc: "Aluminum and glass storefront systems for entries and commercial suites.",
+  },
+  {
+    icon: <Square size={22} />,
+    phase: "Phase 3",
+    title: "Mirrors",
+    desc: "Custom-cut mirrors coordinated and installed as interiors come together.",
+  },
+  {
+    icon: <Layers size={22} />,
+    phase: "Phase 4",
+    title: "Shower Glass Doors",
+    desc: "Tempered enclosures and bathroom hardware to finish units cleanly.",
+  },
+];
+
 const Eyebrow = ({
   children,
   onDark = false,
@@ -240,12 +269,11 @@ export default function Home() {
           <FadeIn className="mb-16 max-w-4xl">
             <Eyebrow>Fastest Window Install Teams</Eyebrow>
             <h2 className="font-[var(--font-display)] text-[clamp(2.25rem,4vw,3.7rem)] font-semibold leading-[1.08] text-slate-950">
-              The fastest window crews on site. No quality tradeoff.
+              The fastest window crews on site.
             </h2>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--text-secondary)]">
-              Ox Glass is built for builders who cannot afford slow window
-              installs or sloppy closeout. We move fast because coordination,
-              field rhythm, and quality checks are part of the same process.
+              Ox Glass is for builders who cannot afford slow window
+              installs or sloppy closeout.
             </p>
           </FadeIn>
 
@@ -376,7 +404,7 @@ export default function Home() {
             <FadeIn direction="left" delay={0.15}>
               <div className="overflow-hidden rounded-xl border border-[rgba(26,43,109,0.08)] bg-white shadow-[var(--shadow-md)]">
                 <video
-                  src="/images/general/PXL_20230815_212827034.TS.mp4"
+                  src="/images/general/website%20install%20work.mp4"
                   className="h-[360px] w-full object-cover lg:h-[420px]"
                   autoPlay
                   muted
@@ -399,26 +427,20 @@ export default function Home() {
                 <Eyebrow>What We Do</Eyebrow>
                 <h2 className="ox-title-lg">Commercial Glass Solutions</h2>
               </div>
-              <p className="ox-body max-w-[620px]">
-                Ox Glass supports builders, property teams, and commercial
-                owners with window and glass scopes that need accurate
-                estimating, reliable coordination, and clean installation in the
-                field.
-              </p>
             </div>
           </FadeIn>
 
           <div className="grid items-stretch gap-6 lg:grid-cols-[minmax(320px,0.85fr)_minmax(0,1.15fr)]">
             <FadeIn
               direction="right"
-              className="ox-card flex min-h-full flex-col overflow-hidden shadow-[var(--shadow-md)]"
+              className="ox-card flex flex-col overflow-hidden shadow-[var(--shadow-md)] lg:h-[600px]"
             >
               <img
                 src="/images/projects/sanctuary/099ccdfeb3508144c5e52b2852d50625c-f2701462556rd-w2048_h1536.webp"
                 alt="Commercial glass installation on a multifamily project"
-                className="h-80 w-full object-cover"
+                className="h-60 w-full shrink-0 object-cover lg:h-auto lg:min-h-0 lg:flex-1"
               />
-              <div className="flex flex-1 flex-col gap-4 p-8">
+              <div className="flex flex-col gap-4 p-8">
                 <span className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--navy)]">
                   Built for active job sites
                 </span>
@@ -446,14 +468,14 @@ export default function Home() {
               </div>
             </FadeIn>
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:auto-rows-fr md:grid-cols-2 lg:h-[600px]">
               {SERVICES.map((svc, i) => (
-                <FadeIn key={svc.title} delay={i * 0.1}>
+                <FadeIn key={svc.title} delay={i * 0.1} className="h-full">
                   <Link
                     to={svc.to}
-                    className="group ox-card ox-card-hover flex flex-col overflow-hidden hover:border-[rgba(26,43,109,0.18)]"
+                    className="group ox-card ox-card-hover flex h-full flex-col overflow-hidden hover:border-[rgba(26,43,109,0.18)]"
                   >
-                    <div className="relative h-[165px] overflow-hidden">
+                    <div className="relative min-h-[200px] flex-1 overflow-hidden">
                       <img
                         src={svc.img}
                         alt={svc.title}
@@ -462,9 +484,6 @@ export default function Home() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
                     </div>
                     <div className="flex flex-col p-5">
-                      <div className="ox-icon-tile mb-4 transition duration-300 group-hover:bg-[var(--navy)] group-hover:text-white">
-                        {svc.icon}
-                      </div>
                       <h3 className="flex items-center justify-between text-lg font-bold text-slate-950">
                         {svc.title}
                         <ArrowRight
@@ -472,14 +491,55 @@ export default function Home() {
                           className="-translate-x-2 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100"
                         />
                       </h3>
-                      <span className="mt-4 block border-t border-slate-100 pt-3 text-[0.68rem] font-bold uppercase leading-4 tracking-[0.06em] text-[var(--navy)]">
-                        {svc.fit}
-                      </span>
+                      <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                        <span className="overflow-hidden text-[0.68rem] font-bold uppercase leading-4 tracking-[0.06em] text-[var(--navy)]">
+                          <span className="mt-4 block border-t border-slate-100 pt-3">
+                            {svc.fit}
+                          </span>
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 </FadeIn>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#080d24] py-28 text-white">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:60px_60px]" />
+        <div className="ox-container relative">
+          <FadeIn className="mx-auto mb-16 max-w-3xl text-center">
+            <Eyebrow onDark>One Subcontractor, Every Scope</Eyebrow>
+            <h2 className="font-[var(--font-display)] text-[clamp(2rem,4vw,3.2rem)] font-semibold leading-tight">
+              Windows, mirrors, storefront, and shower glass — all from one team.
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/72">
+              Ox Glass is unique in the subcontracting industry: we perform
+              multiple scopes across different phases of the same project. That
+              means fewer subcontractors to coordinate, tighter scheduling, and
+              one accountable partner from dry-in to final unit.
+            </p>
+          </FadeIn>
+
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {SCOPE_SEQUENCE.map((scope, i) => (
+              <FadeIn key={scope.title} delay={i * 0.1}>
+                <div className="flex h-full flex-col rounded-2xl border border-white/12 bg-white/[0.06] p-7 backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/[0.1]">
+                  <div className="mb-5 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-white">
+                      {scope.icon}
+                    </div>
+                    <span className="text-xs font-bold uppercase tracking-[0.12em] text-white/50">
+                      {scope.phase}
+                    </span>
+                  </div>
+                  <h3 className="mb-2 text-lg font-bold">{scope.title}</h3>
+                  <p className="text-sm leading-6 text-white/68">{scope.desc}</p>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
@@ -593,21 +653,30 @@ export default function Home() {
                 to protect timeline, budget, and final product quality.
               </p>
 
-              <div className="mt-8 space-y-5">
+              <ol className="mt-8 space-y-1">
                 {PROCESS_STEPS.map((step) => (
-                  <div key={step.num} className="flex gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--navy)] text-sm font-bold text-white">
-                      {step.num}
+                  <li
+                    key={step.num}
+                    className="group cursor-default rounded-xl px-4 py-3 transition hover:bg-white hover:shadow-[var(--shadow-sm)]"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--navy)]/20 text-sm font-bold text-[var(--navy)] transition group-hover:border-[var(--navy)] group-hover:bg-[var(--navy)] group-hover:text-white">
+                        {step.num}
+                      </span>
+                      <h3 className="text-base font-bold text-slate-950">
+                        {step.title}
+                      </h3>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-slate-950">{step.title}</h3>
-                      <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">
-                        {step.desc}
-                      </p>
+                    <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr]">
+                      <div className="overflow-hidden">
+                        <p className="pl-[3.25rem] pt-2 text-sm leading-6 text-[var(--text-secondary)]">
+                          {step.desc}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ol>
 
               <Link to="/new-construction" className="ox-btn-primary mt-10">
                 Explore New Construction <ChevronRight size={16} />
@@ -617,10 +686,12 @@ export default function Home() {
             <FadeIn direction="left" delay={0.2}>
               <div className="relative overflow-hidden rounded-2xl shadow-[var(--shadow-lg)]">
                 <img
-                  src="/images/projects/85 north/85-north-photo-1.png"
-                  alt="New construction glass project"
+                  src="/images/projects/citizen/the_citizen_pool_fromdeck.jpg"
+                  alt="Completed multifamily new construction project with pool courtyard"
                   className="h-[560px] w-full object-cover"
                 />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080d24]/55 to-transparent" />
+
                 <div className="absolute bottom-6 left-6 right-6 flex items-center gap-3 rounded-xl border border-white/15 bg-[var(--navy)]/78 p-4 text-sm font-bold text-white backdrop-blur-md">
                   <ShieldCheck size={20} />
                   5-Point Value Engineering
@@ -676,6 +747,29 @@ export default function Home() {
               View Full Gallery <ArrowRight size={18} />
             </Link>
           </FadeIn>
+        </div>
+      </section>
+
+      <section className="ox-section ox-section-soft">
+        <div className="ox-container">
+          <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+            <FadeIn direction="right">
+              <Eyebrow>Common Questions</Eyebrow>
+              <h2 className="ox-title-lg">Answers for builders and owners.</h2>
+              <p className="ox-body mt-5">
+                A few of the questions we hear most from general contractors,
+                developers, and property teams. Don't see yours? Reach out and
+                we'll walk you through it.
+              </p>
+              <Link to="/contact" className="ox-btn-primary mt-8">
+                Ask Our Team <ArrowRight size={16} />
+              </Link>
+            </FadeIn>
+
+            <FadeIn direction="left" delay={0.15}>
+              <FaqAccordion items={FAQS} />
+            </FadeIn>
+          </div>
         </div>
       </section>
 

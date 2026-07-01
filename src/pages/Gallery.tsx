@@ -12,7 +12,7 @@ export default function Gallery() {
             <span className="ox-eyebrow">Our Work</span>
             <h1 className="ox-title-xl">Project Gallery</h1>
             <p className="ox-subtitle mx-auto mt-4 max-w-2xl">
-              Explore recently completed glass, window, storefront, and new construction projects.
+              Explore recently completed window, mirror, storefront, and new construction projects across Utah.
             </p>
           </FadeIn>
 

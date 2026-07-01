@@ -1,24 +1,40 @@
-import { Shield, Target, Users } from "lucide-react";
+import { Combine, Hammer, Heart, ShieldCheck, Target, Users, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 import PageCTA from "../components/ui/PageCTA";
 import FadeIn from "../components/ui/FadeIn";
+import { COMPANY, LEADERSHIP, STATS, VALUES } from "../data/company";
 
-const VALUES = [
+const VALUE_ICONS = [
+  <Heart size={28} key="heart" />,
+  <ShieldCheck size={28} key="shield" />,
+  <Zap size={28} key="zap" />,
+  <Target size={28} key="target" />,
+];
+
+const DIFFERENTIATORS = [
   {
-    icon: <Users size={30} />,
-    title: "Client First",
-    desc: "We prioritize our clients' needs, ensuring transparent communication from start to finish.",
+    icon: <Combine size={26} />,
+    title: "Multiple scopes, one partner",
+    desc: "We are unique in the subcontracting industry: windows, mirrors, storefront, and shower glass doors handled across different phases of the same project — fewer subs to coordinate, tighter scheduling.",
   },
   {
-    icon: <Target size={30} />,
-    title: "Precision Craft",
-    desc: "Every cut, every seal, every installation is performed with meticulous attention to detail.",
+    icon: <Hammer size={26} />,
+    title: "Installation specialists",
+    desc: "We are a window and glass installation company. We source premium product lines and focus our craft on getting them installed cleanly, on schedule, and to spec.",
   },
   {
-    icon: <Shield size={30} />,
-    title: "Lasting Quality",
-    desc: "We source only the best materials to ensure our work stands the test of time and weather.",
+    icon: <Users size={26} />,
+    title: "A remodel team for homeowners",
+    desc: "In 2023 we launched our Remodel Department, bringing the same quality and follow-through to homeowners — not just builders.",
   },
 ];
+
+const monogram = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("");
 
 export default function About() {
   return (
@@ -29,7 +45,8 @@ export default function About() {
             <span className="ox-eyebrow">Who We Are</span>
             <h1 className="ox-title-xl">About Ox Glass</h1>
             <p className="ox-subtitle mx-auto mt-4 max-w-2xl">
-              Building a legacy of quality and trust in Utah since 2015.
+              Building a legacy of quality and trust in Utah since{" "}
+              {COMPANY.foundedYear}.
             </p>
           </FadeIn>
 
@@ -41,36 +58,68 @@ export default function About() {
                 follow-through.
               </h2>
               <p className="ox-body mt-6">
-                Ox Glass began with a simple mission: to provide the highest
-                quality glass and window solutions with an unwavering commitment
-                to integrity. Over the years, we've grown from a small local
-                shop into a premier provider for commercial projects and new
-                construction across two states.
+                Ox Glass was founded in {COMPANY.foundedYear} as a trusted leader
+                in new-construction window installation across Utah. We started
+                with a simple mission: deliver the best quality window and glass
+                products with superior installation at the most competitive
+                price.
               </p>
               <p className="ox-body mt-4">
-                We believe that every piece of glass we cut and every window we
-                install is a reflection of our core values. Our team of
-                experienced professionals treats every project with the
-                precision and care it deserves.
+                Over the years we grew from a local shop into a premier installer
+                for commercial and new construction projects, expanding our scope
+                to mirrors, shower doors, and storefronts. In 2023 we opened a
+                Remodel Department, bringing that same standard to homeowners as
+                well as builders.
+              </p>
+              <p className="ox-body mt-4 font-semibold text-slate-800">
+                Our why: {COMPANY.why}
               </p>
             </FadeIn>
             <FadeIn direction="left">
               <div className="overflow-hidden rounded-2xl shadow-[var(--shadow-lg)]">
                 <img
-                  src="/images/people/img-2206-scaled-e1677517725844-1024x1024.jpg"
-                  alt="Ox Glass team"
-                  className="h-[430px] w-full object-cover"
+                  src="/images/general/ox_SKP2022_31-768x1024.jpg"
+                  alt="The Ox Glass installation team on a new construction jobsite"
+                  className="h-[430px] w-full object-cover object-bottom"
                 />
               </div>
             </FadeIn>
           </div>
 
-          <div className="mt-20 grid gap-6 md:grid-cols-3">
+          <FadeIn className="mt-16">
+            <div className="grid gap-px overflow-hidden rounded-2xl border border-[rgba(26,43,109,0.08)] bg-[rgba(26,43,109,0.08)] shadow-[var(--shadow-sm)] sm:grid-cols-3">
+              {STATS.map((stat) => (
+                <div key={stat.label} className="bg-white px-6 py-8 text-center">
+                  <strong className="block font-[var(--font-display)] text-4xl font-bold text-[var(--navy)]">
+                    {stat.val}
+                  </strong>
+                  <span className="mt-2 block text-xs font-bold uppercase tracking-[0.1em] text-[var(--text-muted)]">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      <section className="ox-section ox-section-soft">
+        <div className="ox-container">
+          <FadeIn className="mx-auto mb-14 max-w-2xl text-center">
+            <span className="ox-eyebrow mx-auto w-fit">Our Core Values</span>
+            <h2 className="ox-title-lg">What we stand on</h2>
+            <p className="ox-body mx-auto mt-4">
+              Four values guide how we hire, how we schedule, and how we finish
+              every job.
+            </p>
+          </FadeIn>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((value, index) => (
-              <FadeIn key={value.title} delay={(index + 1) * 0.1}>
-                <div className="ox-card h-full p-8 text-center transition hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
-                  <div className="ox-icon-tile mx-auto mb-5 h-14 w-14">
-                    {value.icon}
+              <FadeIn key={value.title} delay={index * 0.1}>
+                <div className="ox-card h-full p-7 transition hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
+                  <div className="ox-icon-tile mb-5 h-14 w-14">
+                    {VALUE_ICONS[index]}
                   </div>
                   <h3 className="text-xl font-bold text-slate-950">
                     {value.title}
@@ -85,10 +134,85 @@ export default function About() {
         </div>
       </section>
 
+      <section className="ox-section">
+        <div className="ox-container">
+          <FadeIn className="mb-14 max-w-2xl">
+            <span className="ox-eyebrow">What Sets Us Apart</span>
+            <h2 className="ox-title-lg">More than a single-scope sub.</h2>
+          </FadeIn>
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            {DIFFERENTIATORS.map((item, index) => (
+              <FadeIn key={item.title} delay={index * 0.1}>
+                <div className="flex h-full flex-col rounded-2xl border border-[rgba(26,43,109,0.08)] bg-white p-8 shadow-[var(--shadow-sm)]">
+                  <div className="ox-icon-tile mb-5 h-12 w-12">{item.icon}</div>
+                  <h3 className="mb-3 text-xl font-bold text-slate-950">
+                    {item.title}
+                  </h3>
+                  <p className="text-[0.96rem] leading-7 text-[var(--text-secondary)]">
+                    {item.desc}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="ox-section ox-section-soft">
+        <div className="ox-container">
+          <FadeIn className="mx-auto mb-14 max-w-2xl text-center">
+            <span className="ox-eyebrow mx-auto w-fit">Leadership</span>
+            <h2 className="ox-title-lg">The team behind the work</h2>
+            <p className="ox-body mx-auto mt-4">
+              Department heads who keep estimating, production, installation, and
+              service aligned on every project.
+            </p>
+          </FadeIn>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {LEADERSHIP.map((leader, index) => (
+              <FadeIn key={leader.name} delay={index * 0.06}>
+                <div className="flex items-center gap-4 rounded-xl border border-[rgba(26,43,109,0.08)] bg-white p-5 shadow-[var(--shadow-sm)]">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[var(--navy)] text-lg font-bold text-white">
+                    {monogram(leader.name)}
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-slate-950">
+                      {leader.name}
+                    </h3>
+                    <p className="text-sm text-[var(--text-secondary)]">
+                      {leader.role}
+                    </p>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="ox-section">
+        <div className="ox-container">
+          <FadeIn className="mx-auto max-w-3xl text-center">
+            <span className="ox-eyebrow mx-auto w-fit">Quality You Can Trust</span>
+            <h2 className="ox-title-lg">Premium products, superior installation.</h2>
+            <p className="ox-body mx-auto mt-4">
+              We install proven, high-quality window and glass products and focus
+              our craft on getting them in cleanly, on schedule, and to spec — so
+              every project performs and looks the part for years to come.
+            </p>
+            <Link to="/services" className="ox-btn-outline mt-10">
+              Explore Our Services
+            </Link>
+          </FadeIn>
+        </div>
+      </section>
+
       <PageCTA
         eyebrow="About Ox Glass"
         heading="Ready to Work with Our Team?"
-        subtext="Whether you're building a new development or managing a commercial project, our team is ready to help bring your vision to life."
+        subtext="Whether you're building a new development, managing a commercial project, or remodeling your home, our team is ready to help bring your vision to life."
         image="/images/people/img-2206-scaled-e1677517725844-1024x1024.jpg"
       />
     </div>

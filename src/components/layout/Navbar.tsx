@@ -3,6 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import logo from '../../assets/logo+wordmark.png'
+import { LOCATIONS } from '../../data/company'
+
+const HQ = LOCATIONS[0]
 
 const NAV_LINKS = [
   { label: 'Home', to: '/' },
@@ -247,7 +250,13 @@ export default function Navbar() {
                   Contact Us
                 </Link>
                 <p className="mt-4 text-center text-sm text-slate-500">
-                  Lehi, UT: <a className="font-semibold text-[var(--navy)]" href="tel:+18010000000">(801) 000-0000</a>
+                  {HQ.label}:{' '}
+                  <a
+                    className="font-semibold text-[var(--navy)]"
+                    href={`tel:${HQ.phones[0].replace(/\D/g, '')}`}
+                  >
+                    {HQ.phones[0]}
+                  </a>
                 </p>
               </div>
             </motion.aside>

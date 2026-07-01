@@ -140,5 +140,97 @@ export const PROJECTS: Project[] = [
       '/images/projects/triview II/triview-ii-photo-9.png',
       '/images/projects/triview II/triview-ii-picture-2.jpg',
     ]
+  },
+  {
+    id: 'sanctuary',
+    title: 'Sanctuary',
+    productLine: 'Windows & Storefront Installation',
+    description: [
+      'Ox Glass delivered the window and glass scope for this multifamily new construction project, coordinating product delivery and installation around an active build schedule.',
+    ],
+    coverImage: '/images/projects/sanctuary/099ccdfeb3508144c5e52b2852d50625c-f1308115592rd-w2048_h1536.webp',
+    images: [
+      '/images/projects/sanctuary/099ccdfeb3508144c5e52b2852d50625c-f1308115592rd-w2048_h1536.webp',
+      '/images/projects/sanctuary/099ccdfeb3508144c5e52b2852d50625c-f1493566501rd-w2048_h1536.webp',
+      '/images/projects/sanctuary/099ccdfeb3508144c5e52b2852d50625c-f2253219434rd-w2048_h1536.webp',
+      '/images/projects/sanctuary/099ccdfeb3508144c5e52b2852d50625c-f2701462556rd-w2048_h1536.webp',
+      '/images/projects/sanctuary/099ccdfeb3508144c5e52b2852d50625c-f3006839632rd-w2048_h1536.webp',
+      '/images/projects/sanctuary/1-Feb 05 2026 02_22pm-Kvo6.jpg',
+      '/images/projects/sanctuary/2-Feb 05 2026 02_23pm-PD8Z.jpg',
+      '/images/projects/sanctuary/3-Feb 25 2026 03_08pm-HY5T.jpg',
+      '/images/projects/sanctuary/4-Feb 25 2026 03_09pm-aoXa.jpg',
+      '/images/projects/sanctuary/NW-24.09.08-copy.webp',
+    ]
+  },
+  {
+    id: 'victory-heights',
+    title: 'Victory Heights',
+    productLine: 'Windows & Storefront Installation',
+    description: [
+      'A commercial new construction project where Ox Glass handled window and storefront installation with an emphasis on clean finish detail and schedule-driven coordination.',
+    ],
+    coverImage: '/images/projects/victory heights/3e481033-8f0c-49d6-9cea-b222bcbd7be2.jpg',
+    images: [
+      '/images/projects/victory heights/3e481033-8f0c-49d6-9cea-b222bcbd7be2.jpg',
+      '/images/projects/victory heights/cea1c06e-db77-4fd7-8693-6ab1f590a969.jpg',
+    ]
+  },
+  {
+    id: 'ridgeview',
+    title: 'Ridgeview',
+    productLine: 'Windows & Glass Installation',
+    description: [
+      'Multi-building new construction project with window and glass installation coordinated building-by-building to keep pace with the general contractor.',
+    ],
+    coverImage: '/images/projects/Ridgeview/Bldng 9 Screen-1-Jun 10 2025 10_40am-tA1x.jpg',
+    images: [
+      '/images/projects/Ridgeview/Bldng 9 Screen-1-Jun 10 2025 10_40am-tA1x.jpg',
+      '/images/projects/Ridgeview/Bldng 9 Screen-3-Jun 10 2025 10_40am-2dcB.jpg',
+      '/images/projects/Ridgeview/Bldng 9 Screen-4-Jun 10 2025 10_41am-RSyW.jpg',
+      '/images/projects/Ridgeview/Bldng 9 Screen-5-Jun 10 2025 10_41am-izAo.jpg',
+      '/images/projects/Ridgeview/Bldng 9 Screen-7-Jun 10 2025 10_41am-DpB9.jpg',
+      '/images/projects/Ridgeview/Bldng 8-2-Jun 10 2025 10_40am-iS4Q.jpg',
+      '/images/projects/Ridgeview/Bldng 8-6-Jun 10 2025 10_41am-azbS.jpg',
+      '/images/projects/Ridgeview/Bldng 8-8-Jun 10 2025 10_41am-nDqg.jpg',
+      '/images/projects/Ridgeview/Bldng 8-9-Jun 10 2025 10_41am-zPdg.jpg',
+      '/images/projects/Ridgeview/Bldng 12 Screen-10-Jun 10 2025 10_45am-X55Q.jpg',
+      '/images/projects/Ridgeview/Bldng 12 Screen-11-Jun 10 2025 10_45am-Pjqj.jpg',
+      '/images/projects/Ridgeview/Bldng 12 Screen-12-Jun 10 2025 10_45am-AbdC.jpg',
+      '/images/projects/Ridgeview/Bldng 12 Screen-13-Jun 10 2025 10_45am-hUad.jpg',
+    ]
+  },
+  {
+    id: 'olayan-residence',
+    title: 'Olayan Residence',
+    productLine: 'Windows, Mirrors & Shower Glass',
+    description: [
+      'A residential remodel project showcasing the Ox Glass Remodel Department: window, mirror, and shower glass scopes installed with the same finish standard as our commercial work.',
+    ],
+    coverImage: '/images/projects/olayan res/1-Apr 24 2026 01_02pm-JGim.jpg',
+    images: [
+      '/images/projects/olayan res/1-Apr 24 2026 01_02pm-JGim.jpg',
+      '/images/projects/olayan res/2-Apr 24 2026 01_03pm-77h2.jpg',
+      '/images/projects/olayan res/3-Apr 24 2026 01_03pm-P8zc.jpg',
+      '/images/projects/olayan res/4-Apr 24 2026 01_03pm-EvVD.jpg',
+      '/images/projects/olayan res/5-Apr 24 2026 01_04pm-9bb8.jpg',
+      '/images/projects/olayan res/6-Apr 24 2026 01_04pm-r7xv.jpg',
+      '/images/projects/olayan res/7-Apr 24 2026 01_04pm-CiEV.jpg',
+      '/images/projects/olayan res/8-Apr 24 2026 01_05pm-kKhJ.jpg',
+      '/images/projects/olayan res/9-Apr 24 2026 01_05pm-9ejR.jpg',
+      '/images/projects/olayan res/10-Apr 24 2026 01_05pm-h6uc.jpg',
+    ]
+  },
+  {
+    id: 'edison',
+    title: 'Edison',
+    productLine: 'Windows & Glass Installation',
+    description: [
+      'Window and glass installation for a commercial new construction project, delivered on schedule with careful coordination around other trades on site.',
+    ],
+    coverImage: '/images/projects/edison/93e2a4e2-fa39-42ef-b376-23826e69e084.jpg',
+    images: [
+      '/images/projects/edison/93e2a4e2-fa39-42ef-b376-23826e69e084.jpg',
+      '/images/projects/edison/f254c555-1c80-4941-9539-6d073ce74c24.jpg',
+    ]
   }
 ];

@@ -95,8 +95,11 @@ export default function ProjectDetail() {
                     </p>
                   ))
                 ) : (
-                  <p className="italic leading-8 text-[var(--text-secondary)]">
-                    Detailed information for this project has not been provided yet.
+                  <p className="leading-8 text-[var(--text-secondary)]">
+                    Ox Glass provided window and glass installation for this
+                    project, coordinating product delivery and field work around
+                    the active construction schedule. Browse the gallery below for
+                    a closer look at the finished installation.
                   </p>
                 )}
 

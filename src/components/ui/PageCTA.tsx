@@ -2,6 +2,9 @@ import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, Phone } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import FadeIn from './FadeIn'
+import { LOCATIONS } from '../../data/company'
+
+const HQ_PHONE = LOCATIONS[0].phones[0]
 
 interface PageCTAProps {
   eyebrow?: string
@@ -13,7 +16,7 @@ interface PageCTAProps {
 const PROOF_POINTS = [
   '15+ Years Experience',
   '500+ Projects Completed',
-  'UT & MT Locations',
+  'Based in Lehi, Utah',
   'Window-First Installation',
 ]
 
@@ -47,7 +50,7 @@ export default function PageCTA({
               Contact Us <ArrowRight size={18} />
             </Link>
             <a
-              href="tel:+18010000000"
+              href={`tel:${HQ_PHONE.replace(/\D/g, '')}`}
               className="inline-flex items-center gap-3 rounded-md border border-white/20 px-5 py-3 text-left transition hover:bg-white/10"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/12">
@@ -57,7 +60,7 @@ export default function PageCTA({
                 <span className="block text-xs font-bold uppercase tracking-[0.12em] text-white/55">
                   Call Us Direct
                 </span>
-                <span className="block font-semibold">(801) 000-0000</span>
+                <span className="block font-semibold">{HQ_PHONE}</span>
               </span>
             </a>
           </div>

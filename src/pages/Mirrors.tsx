@@ -19,7 +19,7 @@ export default function Mirrors() {
       ctaEyebrow="Mirrors"
       ctaHeading="Custom Mirrors for Any Space"
       ctaSubtext="Tell us your dimensions and our team will coordinate the mirror package through installation."
-      ctaImage="/images/general/475497286.jpg"
+      ctaImage="/images/projects/gladhouse/gladhouse-photo-2.png"
       reverse
       background="white"
     />

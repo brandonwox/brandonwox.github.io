@@ -37,7 +37,7 @@ const SERVICES = [
       'On-site measuring and installation',
     ],
     to: '/mirrors',
-    img: '/images/general/475497286.jpg',
+    img: '/images/projects/gladhouse/gladhouse-photo-1.png',
   },
   {
     icon: <Building2 size={24} />,
