@@ -77,11 +77,8 @@ export const VALUES: CompanyValue[] = [
 
 export const LEADERSHIP: Leader[] = [
   { name: 'Brady Williams', role: 'Chief Executive Officer' },
-  { name: 'Josh Williams', role: 'Head of Installation' },
   { name: 'Jared Williams', role: 'Head of Estimating' },
   { name: 'Terry Thompson', role: 'Head of Production' },
-  { name: 'Lake Williams', role: 'Head of Accounting' },
-  { name: 'Brandon Williams', role: 'Head of Remodel Sales' },
 ]
 
 export const FAQS: FaqItem[] = [

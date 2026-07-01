@@ -2,7 +2,7 @@ import { Combine, Hammer, Heart, ShieldCheck, Target, Users, Zap } from "lucide-
 import { Link } from "react-router-dom";
 import PageCTA from "../components/ui/PageCTA";
 import FadeIn from "../components/ui/FadeIn";
-import { COMPANY, LEADERSHIP, STATS, VALUES } from "../data/company";
+import { COMPANY, STATS, VALUES } from "../data/company";
 
 const VALUE_ICONS = [
   <Heart size={28} key="heart" />,
@@ -28,13 +28,6 @@ const DIFFERENTIATORS = [
     desc: "In 2023 we launched our Remodel Department, bringing the same quality and follow-through to homeowners — not just builders.",
   },
 ];
-
-const monogram = (name: string) =>
-  name
-    .split(" ")
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join("");
 
 export default function About() {
   return (
@@ -160,39 +153,6 @@ export default function About() {
       </section>
 
       <section className="ox-section ox-section-soft">
-        <div className="ox-container">
-          <FadeIn className="mx-auto mb-14 max-w-2xl text-center">
-            <span className="ox-eyebrow mx-auto w-fit">Leadership</span>
-            <h2 className="ox-title-lg">The team behind the work</h2>
-            <p className="ox-body mx-auto mt-4">
-              Department heads who keep estimating, production, installation, and
-              service aligned on every project.
-            </p>
-          </FadeIn>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {LEADERSHIP.map((leader, index) => (
-              <FadeIn key={leader.name} delay={index * 0.06}>
-                <div className="flex items-center gap-4 rounded-xl border border-[rgba(26,43,109,0.08)] bg-white p-5 shadow-[var(--shadow-sm)]">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[var(--navy)] text-lg font-bold text-white">
-                    {monogram(leader.name)}
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-slate-950">
-                      {leader.name}
-                    </h3>
-                    <p className="text-sm text-[var(--text-secondary)]">
-                      {leader.role}
-                    </p>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="ox-section">
         <div className="ox-container">
           <FadeIn className="mx-auto max-w-3xl text-center">
             <span className="ox-eyebrow mx-auto w-fit">Quality You Can Trust</span>

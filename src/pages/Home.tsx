@@ -130,55 +130,42 @@ const PROCESS_STEPS = [
   {
     num: "01",
     title: "Consultation & Assessment",
-    desc: "We meet on-site to review plans, specifications, and builder timelines.",
+    desc: "Comprehensive plan and specification analysis to catch trade conflicts and deliver seamless build solutions.",
   },
   {
     num: "02",
     title: "Value Engineering",
-    desc: "Our 5-Point system identifies optimal products, cost savings, and performance gains.",
+    desc: "Reviewing design criteria to guarantee strict code adherence, mitigate risks, and enhance long-term structural and legal security.",
   },
   {
     num: "03",
     title: "Product Coordination",
-    desc: "Window and glass packages are coordinated around specifications, schedule, and site readiness.",
+    desc: "Leveraging an extensive manufacturer network to recommend the ideal product types, materials, and hardware for your project.",
   },
   {
     num: "04",
     title: "Scheduled Installation",
-    desc: "Coordinated with your construction schedule and active jobsite requirements.",
+    desc: "Collaborative design solutions ensuring color, texture, and historic compliance align with your vision and budget.",
   },
   {
     num: "05",
     title: "Final Walk-Through",
-    desc: "We inspect every unit, address punch-list items, and earn your signature.",
+    desc: "We provide accurate, projected pricing and solutions to protect your project from price escalations and supply chain delays.",
   },
 ];
 
-const SCOPE_SEQUENCE = [
+const TRUSTED_BY = [
+  { name: "Toll Brothers", img: "/images/trusted by/toll_brothers.png" },
   {
-    icon: <HomeIcon size={22} />,
-    phase: "Phase 1",
-    title: "Windows",
-    desc: "Energy-efficient window packages installed first to dry in the building.",
+    name: "The Larry H. Miller Company",
+    img: "/images/trusted by/the-larry-h-miller-company.png",
   },
-  {
-    icon: <Building2 size={22} />,
-    phase: "Phase 2",
-    title: "Storefronts",
-    desc: "Aluminum and glass storefront systems for entries and commercial suites.",
-  },
-  {
-    icon: <Square size={22} />,
-    phase: "Phase 3",
-    title: "Mirrors",
-    desc: "Custom-cut mirrors coordinated and installed as interiors come together.",
-  },
-  {
-    icon: <Layers size={22} />,
-    phase: "Phase 4",
-    title: "Shower Glass Doors",
-    desc: "Tempered enclosures and bathroom hardware to finish units cleanly.",
-  },
+  { name: "Layton", img: "/images/trusted by/layton.png" },
+  { name: "Wood Partners", img: "/images/trusted by/wood-partners.png" },
+  { name: "Patterson", img: "/images/trusted by/patterson.png" },
+  { name: "Rimrock", img: "/images/trusted by/Rimrock.png" },
+  { name: "Zwick", img: "/images/trusted by/zwick.png" },
+  { name: "Studio PBA", img: "/images/trusted by/Studio+PBA.png" },
 ];
 
 const Eyebrow = ({
@@ -419,6 +406,33 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="relative overflow-hidden bg-[#080d24] py-20 text-white">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:60px_60px]" />
+        <div className="relative">
+          <FadeIn className="ox-container mb-12 text-center">
+            <Eyebrow onDark>Trusted By Builders</Eyebrow>
+          </FadeIn>
+
+          <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div className="ox-marquee-track">
+              {[...TRUSTED_BY, ...TRUSTED_BY].map((partner, i) => (
+                <div
+                  key={i}
+                  className="flex h-14 shrink-0 items-center justify-center px-10"
+                >
+                  <img
+                    src={partner.img}
+                    alt={partner.name}
+                    loading="lazy"
+                    className="max-h-full w-auto max-w-[180px] object-contain opacity-70 transition duration-300 hover:opacity-100"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="ox-section">
         <div className="ox-container">
           <FadeIn>
@@ -475,7 +489,7 @@ export default function Home() {
                     to={svc.to}
                     className="group ox-card ox-card-hover flex h-full flex-col overflow-hidden hover:border-[rgba(26,43,109,0.18)]"
                   >
-                    <div className="relative min-h-[200px] flex-1 overflow-hidden">
+                    <div className="relative min-h-[200px] flex-1 overflow-hidden lg:min-h-0">
                       <img
                         src={svc.img}
                         alt={svc.title}
@@ -503,43 +517,6 @@ export default function Home() {
                 </FadeIn>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-[#080d24] py-28 text-white">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:60px_60px]" />
-        <div className="ox-container relative">
-          <FadeIn className="mx-auto mb-16 max-w-3xl text-center">
-            <Eyebrow onDark>One Subcontractor, Every Scope</Eyebrow>
-            <h2 className="font-[var(--font-display)] text-[clamp(2rem,4vw,3.2rem)] font-semibold leading-tight">
-              Windows, mirrors, storefront, and shower glass — all from one team.
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/72">
-              Ox Glass is unique in the subcontracting industry: we perform
-              multiple scopes across different phases of the same project. That
-              means fewer subcontractors to coordinate, tighter scheduling, and
-              one accountable partner from dry-in to final unit.
-            </p>
-          </FadeIn>
-
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {SCOPE_SEQUENCE.map((scope, i) => (
-              <FadeIn key={scope.title} delay={i * 0.1}>
-                <div className="flex h-full flex-col rounded-2xl border border-white/12 bg-white/[0.06] p-7 backdrop-blur-sm transition hover:-translate-y-1 hover:bg-white/[0.1]">
-                  <div className="mb-5 flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-white">
-                      {scope.icon}
-                    </div>
-                    <span className="text-xs font-bold uppercase tracking-[0.12em] text-white/50">
-                      {scope.phase}
-                    </span>
-                  </div>
-                  <h3 className="mb-2 text-lg font-bold">{scope.title}</h3>
-                  <p className="text-sm leading-6 text-white/68">{scope.desc}</p>
-                </div>
-              </FadeIn>
-            ))}
           </div>
         </div>
       </section>
@@ -785,6 +762,17 @@ export default function Home() {
             <p className="mt-6 text-sm italic text-white/55">
               The Ox Glass Team
             </p>
+            <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link to="/contact" className="ox-btn-light">
+                Hire Us <ArrowRight size={16} />
+              </Link>
+              <Link
+                to="/gallery"
+                className="inline-flex items-center justify-center gap-2 rounded-md border-2 border-white/30 px-8 py-4 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:border-white hover:bg-white/10"
+              >
+                View Our Work <ArrowRight size={16} />
+              </Link>
+            </div>
           </FadeIn>
         </div>
       </section>
