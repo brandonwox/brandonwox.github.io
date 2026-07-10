@@ -174,7 +174,6 @@ export default function Contact() {
                       <option>Mirrors</option>
                       <option>Storefronts</option>
                       <option>Shower Glass Doors</option>
-                      <option>Remodel</option>
                       <option>Commercial Projects</option>
                       <option>Other</option>
                     </select>

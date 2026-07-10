@@ -24,8 +24,8 @@ const DIFFERENTIATORS = [
   },
   {
     icon: <Users size={26} />,
-    title: "A remodel team for homeowners",
-    desc: "In 2023 we launched our Remodel Department, bringing the same quality and follow-through to homeowners — not just builders.",
+    title: "A partner from bid to punch list",
+    desc: "From the first bid through final walkthrough, one team owns communication, scheduling, and follow-through on every scope of your project.",
   },
 ];
 
@@ -60,9 +60,8 @@ export default function About() {
               <p className="ox-body mt-4">
                 Over the years we grew from a local shop into a premier installer
                 for commercial and new construction projects, expanding our scope
-                to mirrors, shower doors, and storefronts. In 2023 we opened a
-                Remodel Department, bringing that same standard to homeowners as
-                well as builders.
+                to mirrors, shower doors, and storefronts — all delivered to the
+                same standard on every job.
               </p>
               <p className="ox-body mt-4 font-semibold text-slate-800">
                 Our why: {COMPANY.why}
@@ -172,7 +171,7 @@ export default function About() {
       <PageCTA
         eyebrow="About Ox Glass"
         heading="Ready to Work with Our Team?"
-        subtext="Whether you're building a new development, managing a commercial project, or remodeling your home, our team is ready to help bring your vision to life."
+        subtext="Whether you're building a new development or managing a commercial project, our team is ready to help bring your vision to life."
         image="/images/people/img-2206-scaled-e1677517725844-1024x1024.jpg"
       />
     </div>

@@ -1,7 +1,7 @@
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo+wordmark.png";
-import { LOCATIONS, MONTANA_PHONE } from "../../data/company";
+import { LOCATIONS } from "../../data/company";
 
 const SERVICES = [
   { label: "Windows", to: "/windows" },
@@ -24,7 +24,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#080d24] text-white">
       <div className="ox-container py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1.2fr_1.2fr]">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1.2fr]">
           <div>
             <Link to="/" className="inline-flex">
               <img src={logo} alt="Ox Glass" className="h-9 w-auto" />
@@ -91,23 +91,6 @@ export default function Footer() {
               </ul>
             </div>
           ))}
-
-          <div>
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.14em] text-white">
-              Montana
-            </h3>
-            <ul className="space-y-4 text-sm leading-6 text-white/62">
-              <li className="flex gap-3">
-                <Phone size={16} className="mt-1 shrink-0 text-white" />
-                <a
-                  className="transition hover:text-white"
-                  href={`tel:${MONTANA_PHONE.replace(/\D/g, "")}`}
-                >
-                  {MONTANA_PHONE}
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
 

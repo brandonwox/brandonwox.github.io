@@ -60,14 +60,14 @@ const SERVICES = [
 
 const HERO_STATS = [
   { val: "15+", label: "Years Experience" },
-  { val: "50+", label: "Employees" },
+  { val: "40+", label: "Employees" },
   { val: "500+", label: "Projects Completed" },
 ];
 
 const SOLUTION_STATS = [
   { val: "500+", label: "completed projects" },
   { val: "15+", label: "years in the field" },
-  { val: "50+", label: "team members" },
+  { val: "40+", label: "team members" },
 ];
 
 const SPEED_PROOF_POINTS = [

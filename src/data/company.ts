@@ -37,7 +37,7 @@ export const COMPANY = {
 
 export const STATS = [
   { val: '2015', label: 'Serving Utah Since' },
-  { val: '50+', label: 'Team Members' },
+  { val: '40+', label: 'Team Members' },
   { val: '500+', label: 'Projects Completed' },
 ]
 
@@ -46,15 +46,12 @@ export const LOCATIONS: CompanyLocation[] = [
     city: 'Lehi',
     state: 'UT',
     label: 'Lehi, UT',
-    address: '305 South 850 East, Suite 104A, Lehi, UT 84043',
+    address: '305 South 850 East, Suite 108A, Lehi, UT 84043',
     phones: ['(385) 789-4974', '(801) 691-3532'],
     email: 'bids@ox-glass.com',
     isHeadquarters: true,
   },
 ]
-
-// Montana phone is surfaced only in the footer as a way to reach that line.
-export const MONTANA_PHONE = '(406) 360-0149'
 
 export const VALUES: CompanyValue[] = [
   {
@@ -100,7 +97,7 @@ export const FAQS: FaqItem[] = [
   {
     question: 'Do you only do new construction?',
     answer:
-      'New construction window installation is our foundation, but in 2023 we launched a Remodel Department serving homeowners with windows, mirrors, shower doors, and bathroom hardware.',
+      'Yes — our focus is new construction and commercial window and glass installation, covering windows, mirrors, storefront, and shower glass doors for builders and general contractors across Utah.',
   },
   {
     question: 'How do I get an estimate?',

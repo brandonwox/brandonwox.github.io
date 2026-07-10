@@ -204,7 +204,7 @@ export const PROJECTS: Project[] = [
     title: 'Olayan Residence',
     productLine: 'Windows, Mirrors & Shower Glass',
     description: [
-      'A residential remodel project showcasing the Ox Glass Remodel Department: window, mirror, and shower glass scopes installed with the same finish standard as our commercial work.',
+      'A residential project with window, mirror, and shower glass scopes installed with the same finish standard as our commercial work.',
     ],
     coverImage: '/images/projects/olayan res/1-Apr 24 2026 01_02pm-JGim.jpg',
     images: [
