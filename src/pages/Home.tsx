@@ -256,11 +256,15 @@ export default function Home() {
           <FadeIn className="mb-16 max-w-4xl">
             <Eyebrow>Fastest Window Install Teams</Eyebrow>
             <h2 className="font-[var(--font-display)] text-[clamp(2.25rem,4vw,3.7rem)] font-semibold leading-[1.08] text-slate-950">
-              The fastest window crews on site.
+              The fastest crews on site.
+              <br />
+              Without cutting a single corner.
             </h2>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--text-secondary)]">
-              Ox Glass is for builders who cannot afford slow window
-              installs or sloppy closeout.
+              Ox Glass is for builders who cannot afford slow window installs
+              or sloppy closeout. Our crews are fast because they install it
+              right the first time — precise measurements, clean details, and
+              a finish that holds up to inspection without callbacks.
             </p>
           </FadeIn>
 
@@ -274,7 +278,8 @@ export default function Home() {
                         Install performance graph
                       </span>
                       <strong className="mt-2 block text-2xl font-bold leading-tight">
-                        Ox Glass finishes the job 3x quicker than anybody else.
+                        Ox Glass finishes the job 3x quicker than anybody else
+                        — done right the first time.
                       </strong>
                     </div>
                   </div>
