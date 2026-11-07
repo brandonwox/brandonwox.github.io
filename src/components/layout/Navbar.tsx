@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
@@ -7,22 +7,23 @@ import { LOCATIONS } from '../../data/company'
 
 const HQ = LOCATIONS[0]
 
+const SERVICE_LINKS = [
+  { label: 'Windows', to: '/windows' },
+  { label: 'Mirrors', to: '/mirrors' },
+  { label: 'Storefronts', to: '/storefronts' },
+  { label: 'Shower Glass Doors', to: '/shower-glass-doors' },
+  { label: 'New Construction', to: '/new-construction' },
+]
+
 const NAV_LINKS = [
   { label: 'Home', to: '/' },
   { label: 'About Us', to: '/about' },
-  {
-    label: 'Services',
-    children: [
-      { label: 'Windows', to: '/windows' },
-      { label: 'Mirrors', to: '/mirrors' },
-      { label: 'Storefronts', to: '/storefronts' },
-      { label: 'Shower Glass Doors', to: '/shower-glass-doors' },
-      { label: 'New Construction', to: '/new-construction' },
-    ],
-  },
+  { label: 'Services', to: '/services', children: SERVICE_LINKS },
   { label: 'Gallery', to: '/gallery' },
   { label: 'Contact', to: '/contact' },
 ]
+
+const SERVICE_PATHS = ['/services', ...SERVICE_LINKS.map((s) => s.to)]
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   [
@@ -41,10 +42,12 @@ const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
 export default function Navbar() {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
+  const servicesActive = SERVICE_PATHS.includes(pathname)
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(servicesActive)
+  const servicesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
@@ -59,6 +62,16 @@ export default function Navbar() {
       document.body.style.overflow = ''
     }
   }, [mobileOpen])
+
+  // Close the desktop dropdown on Escape or when focus leaves it (keyboard users).
+  useEffect(() => {
+    if (!servicesOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setServicesOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [servicesOpen])
 
   const solidNav = scrolled || !isHome
 
@@ -77,25 +90,44 @@ export default function Navbar() {
             <img src={logo} alt="Ox Glass" className="h-9 w-auto" />
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
             {NAV_LINKS.map((item) =>
               item.children ? (
                 <div
                   key={item.label}
+                  ref={servicesRef}
                   className="relative"
                   onMouseEnter={() => setServicesOpen(true)}
                   onMouseLeave={() => setServicesOpen(false)}
+                  onBlur={(e) => {
+                    if (!servicesRef.current?.contains(e.relatedTarget as Node)) {
+                      setServicesOpen(false)
+                    }
+                  }}
                 >
-                  <button
-                    type="button"
-                    className="inline-flex h-12 items-center gap-1.5 text-sm font-semibold text-white/72 transition-colors hover:text-white"
-                  >
-                    {item.label}
-                    <ChevronDown
-                      size={14}
-                      className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
-                    />
-                  </button>
+                  <div className="inline-flex h-12 items-center gap-1">
+                    <NavLink
+                      to={item.to}
+                      className={() => navLinkClass({ isActive: servicesActive })}
+                      onClick={() => setServicesOpen(false)}
+                    >
+                      {item.label}
+                    </NavLink>
+                    <button
+                      type="button"
+                      className="inline-flex h-8 w-6 items-center justify-center text-white/72 transition-colors hover:text-white"
+                      aria-label="Open services menu"
+                      aria-expanded={servicesOpen}
+                      aria-haspopup="true"
+                      onClick={() => setServicesOpen((v) => !v)}
+                      onFocus={() => setServicesOpen(true)}
+                    >
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                  </div>
                   <AnimatePresence>
                     {servicesOpen && (
                       <motion.div
@@ -105,6 +137,21 @@ export default function Navbar() {
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.18 }}
                       >
+                        <NavLink
+                          to="/services"
+                          end
+                          className={({ isActive }) =>
+                            [
+                              'mb-1 block rounded-lg border-b border-slate-100 px-4 py-3 text-sm font-bold transition',
+                              isActive
+                                ? 'bg-[rgba(26,43,109,0.08)] text-[var(--navy)]'
+                                : 'text-slate-900 hover:bg-slate-100 hover:text-[var(--navy)]',
+                            ].join(' ')
+                          }
+                          onClick={() => setServicesOpen(false)}
+                        >
+                          All Services
+                        </NavLink>
                         {item.children.map((child) => (
                           <NavLink
                             key={child.to}
@@ -127,7 +174,7 @@ export default function Navbar() {
                   </AnimatePresence>
                 </div>
               ) : (
-                <NavLink key={item.to} to={item.to!} className={navLinkClass} end={item.to === '/'}>
+                <NavLink key={item.to} to={item.to} className={navLinkClass} end={item.to === '/'}>
                   {item.label}
                 </NavLink>
               ),
@@ -139,13 +186,14 @@ export default function Navbar() {
               to="/contact"
               className="hidden rounded-md bg-[var(--navy)] px-7 py-3 text-sm font-bold text-white shadow-[0_12px_30px_rgba(26,43,109,0.28)] transition hover:-translate-y-0.5 hover:bg-[var(--navy-light)] md:inline-flex"
             >
-              Contact Us
+              Request a Bid
             </Link>
             <button
               type="button"
               className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/15 text-white transition hover:bg-white/10 lg:hidden"
               onClick={() => setMobileOpen((v) => !v)}
-              aria-label="Toggle menu"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -169,6 +217,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+              aria-label="Mobile navigation"
             >
               <div className="flex items-center justify-between border-b border-slate-200 px-5 py-5">
                 <img src={logo} alt="Ox Glass" className="h-8 w-auto brightness-0" />
@@ -186,18 +235,31 @@ export default function Navbar() {
                 {NAV_LINKS.map((item) =>
                   item.children ? (
                     <div key={item.label}>
-                      <button
-                        type="button"
-                        className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-base font-semibold text-slate-800 transition hover:bg-slate-100"
-                        onClick={() => setMobileServicesOpen((v) => !v)}
-                      >
-                        {item.label}
-                        <ChevronDown
-                          size={16}
-                          className={`transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`}
-                        />
-                      </button>
-                      <AnimatePresence>
+                      <div className="flex items-center gap-1">
+                        <NavLink
+                          to={item.to}
+                          end
+                          className={({ isActive }) =>
+                            `${mobileLinkClass({ isActive })} flex-1`
+                          }
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {item.label}
+                        </NavLink>
+                        <button
+                          type="button"
+                          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg text-slate-700 transition hover:bg-slate-100"
+                          onClick={() => setMobileServicesOpen((v) => !v)}
+                          aria-label={mobileServicesOpen ? 'Hide services' : 'Show services'}
+                          aria-expanded={mobileServicesOpen}
+                        >
+                          <ChevronDown
+                            size={18}
+                            className={`transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`}
+                          />
+                        </button>
+                      </div>
+                      <AnimatePresence initial={false}>
                         {mobileServicesOpen && (
                           <motion.div
                             className="overflow-hidden pl-3"
@@ -230,7 +292,7 @@ export default function Navbar() {
                   ) : (
                     <NavLink
                       key={item.to}
-                      to={item.to!}
+                      to={item.to}
                       className={mobileLinkClass}
                       end={item.to === '/'}
                       onClick={() => setMobileOpen(false)}
@@ -247,7 +309,7 @@ export default function Navbar() {
                   className="flex w-full items-center justify-center rounded-md bg-[var(--navy)] px-6 py-3 text-sm font-bold text-white"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Contact Us
+                  Request a Bid
                 </Link>
                 <p className="mt-4 text-center text-sm text-slate-500">
                   {HQ.label}:{' '}

@@ -1,69 +1,19 @@
 import {
   ArrowRight,
-  Camera,
   CheckCircle,
   ClipboardCheck,
   HardHat,
   PencilRuler,
-  Video,
   Warehouse,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import FadeIn from '../components/ui/FadeIn'
 import FaqAccordion from '../components/ui/FaqAccordion'
 import PageCTA from '../components/ui/PageCTA'
+import PageMeta from '../components/ui/PageMeta'
 import { PROJECTS } from '../data/projects'
-import { COMPANY, LOCATIONS } from '../data/company'
+import { COMPANY, LOCATIONS, PROCESS_STEPS, YEARS_LABEL } from '../data/company'
 import type { FaqItem } from '../data/company'
-
-/*
- * Media placeholder: renders a visible "add photo/video here" slot whose
- * description doubles as the shot list for the real media to be added later.
- * Swap each <MediaSlot> for an <img> / <video> once the real asset exists.
- */
-function MediaSlot({
-  type,
-  description,
-  className = '',
-  dark = false,
-  compact = false,
-}: {
-  type: 'photo' | 'video'
-  description: string
-  className?: string
-  dark?: boolean
-  compact?: boolean
-}) {
-  const Icon = type === 'video' ? Video : Camera
-  return (
-    <div
-      role="img"
-      aria-label={`Placeholder — add ${type}: ${description}`}
-      className={`flex flex-col items-center justify-center gap-2.5 rounded-2xl border-2 border-dashed text-center ${
-        compact ? 'p-4' : 'p-8'
-      } ${
-        dark
-          ? 'border-white/30 bg-white/5 text-white/75'
-          : 'border-[rgba(26,43,109,0.3)] bg-[rgba(26,43,109,0.04)] text-[var(--text-secondary)]'
-      } ${className}`}
-    >
-      <Icon
-        size={compact ? 22 : 30}
-        className={dark ? 'text-white/60' : 'text-[var(--navy)]'}
-      />
-      <span
-        className={`text-[0.65rem] font-bold uppercase tracking-[0.14em] ${
-          dark ? 'text-white/60' : 'text-[var(--navy)]'
-        }`}
-      >
-        Add {type} here
-      </span>
-      <p className={`max-w-sm leading-6 ${compact ? 'text-xs' : 'text-sm'}`}>
-        {description}
-      </p>
-    </div>
-  )
-}
 
 const HERO_STATS = [
   { val: `${COMPANY.foundedYear}`, label: 'Installing Windows Since' },
@@ -78,91 +28,51 @@ const WINDOWS_FIRST_POINTS = [
   'Headquartered in Lehi, serving builders across Utah',
 ]
 
-const PROCESS_STEPS = [
-  {
-    num: '01',
-    title: 'Bid & Value Engineering',
-    desc: 'Our pre-production team logs your project and sets a meeting with our lead estimator. We review plans, specs, and renderings through our 5-Point Value Engineering process and come back with RFIs, recommendations, and price comparisons — before you commit to anything.',
-  },
-  {
-    num: '02',
-    title: 'Estimate & Award',
-    desc: 'Once RFIs and addenda are settled, you get a complete cost estimate with clear scope and options to consider. When we are awarded the work, price and scope are confirmed before submittals begin.',
-  },
-  {
-    num: '03',
-    title: 'Submittals & Shop Drawings',
-    desc: 'Our pre-production manager sends finalized submittals, then walks you through design, shop drawings, manufacturer testing, and layouts — so the windows we order are exactly the windows you approved.',
-  },
-  {
-    num: '04',
-    title: 'Production Planning',
-    desc: 'Before product ships, we meet on site to plan dates, deliveries, machinery, and access. Material is ordered to match your schedule, and we confirm your start date a week before crews arrive.',
-  },
-  {
-    num: '05',
-    title: 'Installation & Closeout',
-    desc: 'Foreman-led crews set windows with a field supervisor over every job and a progress report in your inbox each week. We finish with a punch walk and a closeout QC meeting — and we are not done until every opening is.',
-  },
-]
-
 const TEAMS = [
   {
     icon: <PencilRuler size={24} />,
     title: 'Estimating',
-    desc: 'Estimators who live in plans and unit mixes. They build window bids that hold up — and flag the problems that would have cost you later.',
-    shot: 'An Ox Glass estimator at a desk reviewing plans or doing a window takeoff — screens and drawings visible.',
+    desc: 'Estimators who live in plans and unit mixes. They build window bids that hold up and flag the problems that would have cost you later.',
   },
   {
     icon: <ClipboardCheck size={24} />,
     title: 'Pre-Production',
     desc: 'Coordinators who move your package from award to job-ready: submittals, design confirmations, ordering, and scheduling.',
-    shot: 'A coordinator working through submittals or order paperwork, or on a call with a builder.',
   },
   {
     icon: <HardHat size={24} />,
     title: 'Field Crews',
     desc: 'Installers led by foremen, with field supervisors over every project. They are the reason our name is on the building.',
-    shot: 'A foreman and crew setting a window together on site — hard hats and Ox gear visible.',
   },
   {
     icon: <Warehouse size={24} />,
     title: 'Warehouse',
     desc: 'Warehouse technicians who receive, stage, and deliver product so crews are never standing around waiting on windows.',
-    shot: 'Windows racked and staged in the Ox warehouse, or being loaded onto a delivery truck.',
   },
 ]
 
-const FIELD_SHOTS: {
-  type: 'photo' | 'video'
-  description: string
-  wide?: boolean
-}[] = [
+// Real jobsite photos of window packages in progress and complete.
+const FIELD_SHOTS = [
   {
-    type: 'video',
-    description:
-      'Crane, lift, or crew moving windows up the building — the scale of a multifamily window package in motion.',
+    src: '/images/general/ventanas-dng_132-1-1024x576.jpg',
+    alt: 'Windows set across a multifamily building mid-construction',
     wide: true,
   },
   {
-    type: 'photo',
-    description:
-      'Close-up of hands leveling and shimming a window in the opening — level on the frame.',
+    src: '/images/general/16a5e58c-da00-41bc-9845-e9be44c14333.jpg',
+    alt: 'New windows installed in a framed hotel building before siding',
   },
   {
-    type: 'photo',
-    description:
-      'Installer flashing, foaming, or sealing around a freshly set window.',
+    src: '/images/general/ventanas-dng_34-1-1024x576.jpg',
+    alt: 'Multifamily building with windows installed and exterior finishes underway',
   },
   {
-    type: 'photo',
-    description:
-      'Field supervisor on a punch walk, checking an installed window with a builder.',
+    src: '/images/general/3c8add5d-d61f-4a7d-842a-e10512deb82d.jpg',
+    alt: 'Four-story apartment building with every window set',
   },
   {
-    type: 'photo',
-    description:
-      'Crew photo at the end of a building — the team in front of a wall of windows they just set.',
+    src: '/images/general/ventanas-dng_3-1-1024x452.jpg',
+    alt: 'Wide view of a framed multifamily building with windows installed on every floor',
     wide: true,
   },
 ]
@@ -185,7 +95,7 @@ const WINDOW_FAQS: FaqItem[] = [
   {
     question: 'Do you supply the windows, or just install them?',
     answer:
-      'Both. We are an installation company — we do not manufacture windows — but we carry the whole package. Our estimators compare product lines and pricing from our manufacturer network, our pre-production team handles submittals and ordering, and our own crews install what we deliver.',
+      'Both. We are an installation company, not a manufacturer, but we carry the whole package. Our estimators compare product lines and pricing from our manufacturer network, our pre-production team handles submittals and ordering, and our own crews install what we deliver.',
   },
   {
     question: 'What kinds of projects do you install windows on?',
@@ -218,8 +128,22 @@ const Eyebrow = ({
 export default function Windows() {
   return (
     <div className="bg-white">
+      <PageMeta
+        title="Window Installation"
+        description="New construction window installation for multifamily, mixed-use, and single-family builders across Utah. Estimating, submittals, ordering, and foreman-led installation under one roof."
+      />
+
       {/* Hero */}
       <section className="relative isolate flex min-h-[680px] items-center overflow-hidden bg-[#080d24] pb-20 pt-32 text-white">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/general/ventanas-dng_132-1-1024x576.jpg"
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#080d24] via-[#080d24]/90 to-[#080d24]/60" />
+        </div>
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:60px_60px]" />
 
         <div className="ox-container relative z-10 w-full">
@@ -234,7 +158,7 @@ export default function Windows() {
               <p className="mt-6 max-w-xl text-lg leading-8 text-white/84">
                 Ox Glass started in {COMPANY.foundedYear} hanging windows on new
                 construction across Utah. A decade and 500+ projects later,
-                window installation is still the heart of our company — our
+                window installation is still the heart of our company: our
                 biggest crews, our deepest experience, and most of the work we
                 do every day.
               </p>
@@ -250,7 +174,7 @@ export default function Windows() {
                 </a>
               </div>
 
-              <div className="mt-14 grid max-w-2xl grid-cols-1 gap-6 border-t border-white/15 pt-8 sm:grid-cols-3">
+              <div className="mt-14 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/15 pt-8">
                 {HERO_STATS.map((stat) => (
                   <div key={stat.label}>
                     <strong className="block text-3xl font-bold leading-none">
@@ -265,12 +189,18 @@ export default function Windows() {
             </FadeIn>
 
             <FadeIn delay={0.2} direction="left" className="hidden lg:block">
-              <MediaSlot
-                type="video"
-                dark
-                className="min-h-[420px]"
-                description="Wide video of an active jobsite: Ox Glass crews on lifts or scaffolding setting windows into a multifamily building, Ox branding visible. Muted autoplay loop, 15–30 seconds."
-              />
+              <div className="overflow-hidden rounded-2xl border border-white/14 shadow-2xl">
+                <video
+                  src="/images/general/website%20install%20work.mp4"
+                  className="h-[460px] w-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Ox Glass crews installing windows on an active job site"
+                />
+              </div>
             </FadeIn>
           </div>
         </div>
@@ -289,8 +219,8 @@ export default function Windows() {
                 Plenty of glass companies treat windows as one line on a long
                 list of services. For us it is the other way around. Ox Glass
                 was founded as a new-construction window installation company,
-                and everything we have added since — mirrors, storefront,
-                shower glass — was built on the back of our window work.
+                and everything we have added since, from mirrors to storefront
+                to shower glass, was built on the back of our window work.
               </p>
               <p className="ox-body mt-4">
                 That focus shows up on site. Our estimators think in unit
@@ -316,11 +246,14 @@ export default function Windows() {
               </ul>
             </FadeIn>
             <FadeIn direction="left" delay={0.15}>
-              <MediaSlot
-                type="photo"
-                className="h-[500px]"
-                description="An Ox Glass crew lifting a window into an opening — an action shot, close enough to see hands, the level on the frame, and branded gear. This is the 'who we are' photo for the page."
-              />
+              <div className="overflow-hidden rounded-2xl shadow-[var(--shadow-lg)]">
+                <img
+                  src="/images/general/3c8add5d-d61f-4a7d-842a-e10512deb82d.jpg"
+                  alt="Four-story multifamily building with every window installed by Ox Glass, crew on site"
+                  loading="lazy"
+                  className="h-[500px] w-full object-cover"
+                />
+              </div>
             </FadeIn>
           </div>
         </div>
@@ -337,12 +270,14 @@ export default function Windows() {
             </p>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <MediaSlot
-              type="photo"
-              dark
-              className="mt-10 min-h-[320px]"
-              description="Building-wide photo taken mid-install: rows of freshly set windows across a framed multifamily facade — the scale of a full Ox Glass window package in one frame."
-            />
+            <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+              <img
+                src="/images/general/16a5e58c-da00-41bc-9845-e9be44c14333.jpg"
+                alt="A full window package set across a framed building before exterior finishes"
+                loading="lazy"
+                className="h-[320px] w-full object-cover md:h-[440px]"
+              />
+            </div>
           </FadeIn>
         </div>
       </section>
@@ -356,8 +291,8 @@ export default function Windows() {
               <h2 className="ox-title-lg">How we run a window package.</h2>
               <p className="ox-body mt-5 max-w-2xl">
                 No mystery, and no hand-offs into the void. Every window
-                project at Ox Glass follows the same path — the one we have
-                refined across a decade of new construction — so you always
+                project at Ox Glass follows the same path, the one we have
+                refined across a decade of new construction, so you always
                 know what is happening and what comes next.
               </p>
 
@@ -388,11 +323,30 @@ export default function Windows() {
             </FadeIn>
 
             <FadeIn direction="left" delay={0.2} className="lg:sticky lg:top-28">
-              <MediaSlot
-                type="video"
-                className="min-h-[560px] bg-white"
-                description="Video following one window from the warehouse to installed and sealed — staging, delivery, set, level, fasten, seal — or a timelapse of a crew setting a full floor. This sits beside the process steps, so it should show the process actually happening."
-              />
+              <div className="grid gap-5">
+                <figure className="overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-md)]">
+                  <img
+                    src="/images/general/ventanas-dng_117-1024x576.jpg"
+                    alt="Finished multifamily building with a full window and storefront package"
+                    loading="lazy"
+                    className="h-[300px] w-full object-cover"
+                  />
+                  <figcaption className="px-5 py-4 text-xs font-bold uppercase tracking-[0.12em] text-[var(--navy)]">
+                    Closeout: every opening set and sealed
+                  </figcaption>
+                </figure>
+                <figure className="overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-md)]">
+                  <img
+                    src="/images/general/ventanas-dng_111-1-1024x576.jpg"
+                    alt="Completed apartment building exterior with windows and balcony doors installed"
+                    loading="lazy"
+                    className="h-[300px] w-full object-cover"
+                  />
+                  <figcaption className="px-5 py-4 text-xs font-bold uppercase tracking-[0.12em] text-[var(--navy)]">
+                    The finish builders put their name next to
+                  </figcaption>
+                </figure>
+              </div>
             </FadeIn>
           </div>
         </div>
@@ -408,7 +362,7 @@ export default function Windows() {
             </h2>
             <p className="ox-body mx-auto mt-4">
               More than 40 people touch a window package as it moves through
-              Ox Glass — and every one of them works under the same roof, to
+              Ox Glass, and every one of them works under the same roof, to
               the same standard: {COMPANY.motto}
             </p>
           </FadeIn>
@@ -416,22 +370,14 @@ export default function Windows() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {TEAMS.map((team, i) => (
               <FadeIn key={team.title} delay={i * 0.1}>
-                <div className="ox-card flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
-                  <MediaSlot
-                    type="photo"
-                    compact
-                    className="m-3 h-44 rounded-xl"
-                    description={team.shot}
-                  />
-                  <div className="flex flex-1 flex-col p-7 pt-4">
-                    <div className="ox-icon-tile mb-4">{team.icon}</div>
-                    <h3 className="mb-3 text-xl font-bold text-slate-950">
-                      {team.title}
-                    </h3>
-                    <p className="text-sm leading-7 text-[var(--text-secondary)]">
-                      {team.desc}
-                    </p>
-                  </div>
+                <div className="ox-card flex h-full flex-col p-7 transition hover:-translate-y-1 hover:shadow-[var(--shadow-md)]">
+                  <div className="ox-icon-tile mb-5 h-14 w-14">{team.icon}</div>
+                  <h3 className="mb-3 text-xl font-bold text-slate-950">
+                    {team.title}
+                  </h3>
+                  <p className="text-sm leading-7 text-[var(--text-secondary)]">
+                    {team.desc}
+                  </p>
                 </div>
               </FadeIn>
             ))}
@@ -444,26 +390,28 @@ export default function Windows() {
         <div className="ox-container">
           <FadeIn className="mb-12 text-center">
             <span className="ox-eyebrow mx-auto w-fit">In The Field</span>
-            <h2 className="ox-title-lg">Our crews at work.</h2>
+            <h2 className="ox-title-lg">Windows going in across Utah.</h2>
             <p className="ox-body mx-auto mt-4 max-w-2xl">
-              The part of the job you cannot fake — real Ox Glass installers
-              setting real windows on active Utah job sites.
+              Window packages in progress and complete on active Utah job
+              sites, from framed buildings to final finishes.
             </p>
           </FadeIn>
 
           <div className="grid auto-rows-[240px] gap-6 md:grid-cols-2 lg:grid-cols-3">
             {FIELD_SHOTS.map((shot, i) => (
               <FadeIn
-                key={shot.description}
+                key={shot.src}
                 delay={i * 0.08}
                 className={shot.wide ? 'lg:col-span-2' : ''}
               >
-                <MediaSlot
-                  type={shot.type}
-                  compact
-                  className="h-full bg-white"
-                  description={shot.description}
-                />
+                <div className="h-full overflow-hidden rounded-2xl shadow-[var(--shadow-sm)]">
+                  <img
+                    src={shot.src}
+                    alt={shot.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition duration-500 hover:scale-105"
+                  />
+                </div>
               </FadeIn>
             ))}
           </div>
@@ -493,7 +441,8 @@ export default function Windows() {
                 >
                   <img
                     src={project.coverImage}
-                    alt={`${project.title} — window installation by Ox Glass`}
+                    alt={`${project.title}, window installation by Ox Glass`}
+                    loading="lazy"
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#080d24]/90 to-transparent p-6 text-white">
@@ -546,7 +495,7 @@ export default function Windows() {
       <PageCTA
         eyebrow="Windows"
         heading="Let's talk about your window package."
-        subtext="Send us your plans, unit counts, and schedule — one of our estimators will come back with the right product and pricing for your build."
+        subtext={`Send us your plans, unit counts, and schedule. One of our estimators will come back with the right product and pricing for your build. ${YEARS_LABEL} years of window packages behind every bid.`}
         image="/images/projects/momentum/momentum-window-photo-1.png"
       />
     </div>

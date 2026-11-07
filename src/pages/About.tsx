@@ -2,7 +2,8 @@ import { Combine, Hammer, Heart, ShieldCheck, Target, Users, Zap } from "lucide-
 import { Link } from "react-router-dom";
 import PageCTA from "../components/ui/PageCTA";
 import FadeIn from "../components/ui/FadeIn";
-import { COMPANY, STATS, VALUES } from "../data/company";
+import PageMeta from "../components/ui/PageMeta";
+import { COMPANY, LEADERSHIP, STATS, VALUES } from "../data/company";
 
 const VALUE_ICONS = [
   <Heart size={28} key="heart" />,
@@ -15,7 +16,7 @@ const DIFFERENTIATORS = [
   {
     icon: <Combine size={26} />,
     title: "Multiple scopes, one partner",
-    desc: "We are unique in the subcontracting industry: windows, mirrors, storefront, and shower glass doors handled across different phases of the same project — fewer subs to coordinate, tighter scheduling.",
+    desc: "We are unique in the subcontracting industry: windows, mirrors, storefront, and shower glass doors handled across different phases of the same project, which means fewer subs to coordinate and tighter scheduling.",
   },
   {
     icon: <Hammer size={26} />,
@@ -32,6 +33,10 @@ const DIFFERENTIATORS = [
 export default function About() {
   return (
     <div className="bg-white pt-20">
+      <PageMeta
+        title="About Us"
+        description={`Ox Glass has installed windows and glass for new construction and commercial projects across Utah since ${COMPANY.foundedYear}. Meet the team and the values behind Integrity First, Service Always.`}
+      />
       <section className="ox-section">
         <div className="ox-container">
           <FadeIn className="mx-auto mb-16 max-w-3xl text-center">
@@ -60,7 +65,7 @@ export default function About() {
               <p className="ox-body mt-4">
                 Over the years we grew from a local shop into a premier installer
                 for commercial and new construction projects, expanding our scope
-                to mirrors, shower doors, and storefronts — all delivered to the
+                to mirrors, shower doors, and storefronts, all delivered to the
                 same standard on every job.
               </p>
               <p className="ox-body mt-4 font-semibold text-slate-800">
@@ -70,9 +75,9 @@ export default function About() {
             <FadeIn direction="left">
               <div className="overflow-hidden rounded-2xl shadow-[var(--shadow-lg)]">
                 <img
-                  src="/images/general/ox_SKP2022_31-768x1024.jpg"
-                  alt="The Ox Glass installation team on a new construction jobsite"
-                  className="h-[430px] w-full object-cover object-bottom"
+                  src="/images/general/ox_SKP2022_30.jpg"
+                  alt="The Ox Glass headquarters building in Lehi, Utah"
+                  className="h-[430px] w-full object-cover"
                 />
               </div>
             </FadeIn>
@@ -128,6 +133,45 @@ export default function About() {
 
       <section className="ox-section">
         <div className="ox-container">
+          <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+            <FadeIn direction="right">
+              <span className="ox-eyebrow">Leadership</span>
+              <h2 className="ox-title-lg">The people behind the name.</h2>
+              <p className="ox-body mt-5">
+                Ox Glass is led by the same people who bid, plan, and run your
+                project. When you call, you reach someone who can make a
+                decision.
+              </p>
+            </FadeIn>
+            <div className="grid gap-5 sm:grid-cols-3">
+              {LEADERSHIP.map((leader, index) => (
+                <FadeIn key={leader.name} delay={index * 0.1} className="h-full">
+                  <div className="ox-card flex h-full flex-col items-start p-6">
+                    <span
+                      aria-hidden="true"
+                      className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--navy)] font-[var(--font-display)] text-lg font-semibold text-white"
+                    >
+                      {leader.name
+                        .split(" ")
+                        .map((part) => part[0])
+                        .join("")}
+                    </span>
+                    <h3 className="text-lg font-bold text-slate-950">
+                      {leader.name}
+                    </h3>
+                    <p className="mt-1 text-sm font-semibold text-[var(--text-secondary)]">
+                      {leader.role}
+                    </p>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="ox-section ox-section-soft">
+        <div className="ox-container">
           <FadeIn className="mb-14 max-w-2xl">
             <span className="ox-eyebrow">What Sets Us Apart</span>
             <h2 className="ox-title-lg">More than a single-scope sub.</h2>
@@ -151,14 +195,14 @@ export default function About() {
         </div>
       </section>
 
-      <section className="ox-section ox-section-soft">
+      <section className="ox-section">
         <div className="ox-container">
           <FadeIn className="mx-auto max-w-3xl text-center">
             <span className="ox-eyebrow mx-auto w-fit">Quality You Can Trust</span>
             <h2 className="ox-title-lg">Premium products, superior installation.</h2>
             <p className="ox-body mx-auto mt-4">
               We install proven, high-quality window and glass products and focus
-              our craft on getting them in cleanly, on schedule, and to spec — so
+              our craft on getting them in cleanly, on schedule, and to spec, so
               every project performs and looks the part for years to come.
             </p>
             <Link to="/services" className="ox-btn-outline mt-10">
@@ -172,7 +216,7 @@ export default function About() {
         eyebrow="About Ox Glass"
         heading="Ready to Work with Our Team?"
         subtext="Whether you're building a new development or managing a commercial project, our team is ready to help bring your vision to life."
-        image="/images/people/img-2206-scaled-e1677517725844-1024x1024.jpg"
+        image="/images/general/ox_SKP2022_31-768x1024.jpg"
       />
     </div>
   );

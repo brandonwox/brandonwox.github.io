@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle, Phone } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import FadeIn from './FadeIn'
-import { LOCATIONS } from '../../data/company'
+import { COMPANY, LOCATIONS } from '../../data/company'
 
 const HQ_PHONE = LOCATIONS[0].phones[0]
 
@@ -14,22 +14,22 @@ interface PageCTAProps {
 }
 
 const PROOF_POINTS = [
-  '15+ Years Experience',
+  `Serving Utah builders since ${COMPANY.foundedYear}`,
   '500+ Projects Completed',
-  'Based in Lehi, Utah',
-  'Window-First Installation',
+  'Windows, mirrors, storefront & shower glass',
+  'Headquartered in Lehi, Utah',
 ]
 
 export default function PageCTA({
   eyebrow = 'Work With Us',
   heading = 'Ready to Start Your Project?',
-  subtext = 'Reach out by phone, email, or the form below — and one of our estimators will get back to you.',
-  image = '/images/projects/cottonwood broadway/cb-4-scaled.jpg',
+  subtext = 'Reach out by phone, email, or our contact form, and one of our estimators will get back to you.',
+  image = '/images/projects/cottonwood broadway/cb-4-hero.jpg',
 }: PageCTAProps) {
   return (
     <section className="relative overflow-hidden bg-[#080d24] py-24 text-white">
       <div className="absolute inset-0">
-        <img src={image} alt="" aria-hidden="true" className="h-full w-full object-cover opacity-28" />
+        <img src={image} alt="" aria-hidden="true" loading="lazy" className="h-full w-full object-cover opacity-28" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#080d24] via-[#101a4a]/92 to-[#1a2b6d]/78" />
       </div>
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[length:56px_56px] opacity-40" />
@@ -47,7 +47,7 @@ export default function PageCTA({
               to="/contact"
               className="ox-btn-light"
             >
-              Contact Us <ArrowRight size={18} />
+              Request a Bid <ArrowRight size={18} />
             </Link>
             <a
               href={`tel:${HQ_PHONE.replace(/\D/g, '')}`}

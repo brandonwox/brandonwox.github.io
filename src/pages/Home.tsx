@@ -1,27 +1,30 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Award,
-  BadgeCheck,
   Building2,
   CalendarCheck,
   CheckCircle,
   ChevronRight,
   ClipboardCheck,
+  ClipboardList,
   DollarSign,
+  HardHat,
   Home as HomeIcon,
   Layers,
   ShieldCheck,
   Square,
-  Timer,
-  Truck,
   Users,
+  Warehouse,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import FadeIn from "../components/ui/FadeIn";
 import FaqAccordion from "../components/ui/FaqAccordion";
+import PageMeta from "../components/ui/PageMeta";
 import { PROJECTS } from "../data/projects";
-import { FAQS } from "../data/company";
+import { COMPANY, FAQS, PROCESS_STEPS, YEARS_LABEL } from "../data/company";
+
+const HERO_IMAGE = "/images/projects/cottonwood broadway/cb-4-hero.jpg";
 
 const SERVICES = [
   {
@@ -59,29 +62,38 @@ const SERVICES = [
 ];
 
 const HERO_STATS = [
-  { val: "15+", label: "Years Experience" },
-  { val: "40+", label: "Employees" },
+  { val: YEARS_LABEL, label: "Years in Business" },
+  { val: "40+", label: "Team Members" },
   { val: "500+", label: "Projects Completed" },
 ];
 
 const SOLUTION_STATS = [
   { val: "500+", label: "completed projects" },
-  { val: "15+", label: "years in the field" },
+  { val: YEARS_LABEL, label: "years in the field" },
   { val: "40+", label: "team members" },
 ];
 
-const SPEED_PROOF_POINTS = [
+// Concrete reasons crews move quickly, drawn from how a package actually runs.
+const SCHEDULE_POINTS = [
   {
-    icon: <Truck size={24} />,
-    title: "White-Glove Speed",
+    icon: <ClipboardList size={22} />,
+    title: "Planned before product ships",
+    desc: "An on-site production meeting locks dates, deliveries, equipment, and access before the first window arrives.",
   },
   {
-    icon: <Timer size={24} />,
-    title: "Rapid Turnaround",
+    icon: <Warehouse size={22} />,
+    title: "Staged from our own warehouse",
+    desc: "Product is received, staged, and delivered by our warehouse team so crews are never waiting on material.",
   },
   {
-    icon: <BadgeCheck size={24} />,
-    title: "Highest Quality",
+    icon: <HardHat size={22} />,
+    title: "Foreman-led crews, supervised",
+    desc: "Every job runs with a foreman on the crew and a field supervisor over it, so questions get answered on site.",
+  },
+  {
+    icon: <CalendarCheck size={22} />,
+    title: "Weekly progress reports",
+    desc: "You get a status report every week and a punch walk and closeout QC meeting when the last opening is set.",
   },
 ];
 
@@ -112,7 +124,7 @@ const VALUE_PROPS = [
   {
     icon: <Layers size={24} />,
     title: "Superior Installation",
-    desc: "Our certified crews treat every install like a signature project with precision and care every time.",
+    desc: "Our crews treat every install like a signature project with precision and care every time.",
   },
   {
     icon: <DollarSign size={24} />,
@@ -123,34 +135,6 @@ const VALUE_PROPS = [
     icon: <CheckCircle size={24} />,
     title: "Integrity First",
     desc: "We do what we say. Our motto is the standard we hold ourselves to every day.",
-  },
-];
-
-const PROCESS_STEPS = [
-  {
-    num: "01",
-    title: "Consultation & Assessment",
-    desc: "Comprehensive plan and specification analysis to catch trade conflicts and deliver seamless build solutions.",
-  },
-  {
-    num: "02",
-    title: "Value Engineering",
-    desc: "Reviewing design criteria to guarantee strict code adherence, mitigate risks, and enhance long-term structural and legal security.",
-  },
-  {
-    num: "03",
-    title: "Product Coordination",
-    desc: "Leveraging an extensive manufacturer network to recommend the ideal product types, materials, and hardware for your project.",
-  },
-  {
-    num: "04",
-    title: "Scheduled Installation",
-    desc: "Collaborative design solutions ensuring color, texture, and historic compliance align with your vision and budget.",
-  },
-  {
-    num: "05",
-    title: "Final Walk-Through",
-    desc: "We provide accurate, projected pricing and solutions to protect your project from price escalations and supply chain delays.",
   },
 ];
 
@@ -181,16 +165,17 @@ const Eyebrow = ({
 );
 
 export default function Home() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <div className="bg-white">
+      <PageMeta />
+
       <section className="relative isolate flex min-h-[820px] items-center overflow-hidden bg-[#080d24] pb-20 pt-28 text-white">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/projects/cottonwood broadway/cb-4-scaled.jpg"
-            alt="Commercial glass installation"
+            src={HERO_IMAGE}
+            alt="Aerial view of a completed multifamily building with windows installed by Ox Glass"
             className="h-full w-full object-cover"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080d24]/96 via-[var(--navy)]/82 to-[#080d24]/36" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#080d24]/65 to-transparent" />
@@ -204,19 +189,19 @@ export default function Home() {
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="max-w-3xl">
-              <Eyebrow onDark>Commercial Glass Specialists</Eyebrow>
+              <Eyebrow onDark>Window & Glass Installation</Eyebrow>
               <h1 className="font-[var(--font-display)] text-[clamp(3rem,6vw,5rem)] font-bold leading-[1.04] drop-shadow-[0_6px_24px_rgba(0,0,0,0.28)]">
                 Integrity First,
                 <br />
                 Service Always.
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-white/84">
-                Premium window and glass installation for new construction
-                builders and commercial projects across Utah
+                Windows, mirrors, storefronts, and shower glass installed for
+                new construction builders and commercial projects across Utah.
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <Link to="/contact" className="ox-btn-light">
-                  Contact Us <ArrowRight size={18} />
+                  Request a Bid <ArrowRight size={18} />
                 </Link>
                 <Link
                   to="/services"
@@ -226,7 +211,7 @@ export default function Home() {
                 </Link>
               </div>
 
-              <div className="mt-14 grid max-w-2xl grid-cols-1 gap-6 border-t border-white/15 pt-8 sm:grid-cols-3">
+              <div className="mt-14 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/15 pt-8">
                 {HERO_STATS.map((stat) => (
                   <div key={stat.label}>
                     <strong className="block text-3xl font-bold leading-none">
@@ -254,156 +239,49 @@ export default function Home() {
       <section className="bg-white py-28 lg:py-32">
         <div className="ox-container">
           <FadeIn className="mb-16 max-w-4xl">
-            <Eyebrow>Fastest Window Install Teams</Eyebrow>
+            <Eyebrow>Built for the Schedule</Eyebrow>
             <h2 className="font-[var(--font-display)] text-[clamp(2.25rem,4vw,3.7rem)] font-semibold leading-[1.08] text-slate-950">
-              The fastest crews on site.
+              Fast on site.
               <br />
-              Without cutting a single corner.
+              Right the first time.
             </h2>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--text-secondary)]">
-              Ox Glass is for builders who cannot afford slow window installs
-              or sloppy closeout. Our crews are fast because they install it
-              right the first time — precise measurements, clean details, and
-              a finish that holds up to inspection without callbacks.
+              Builders bring us in when a slow window install or a sloppy
+              closeout would cost them the schedule. Our crews move quickly
+              because the planning is done before they arrive: precise
+              measurements, staged material, clean details, and a finish that
+              holds up to inspection without callbacks.
             </p>
           </FadeIn>
 
-          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(340px,0.62fr)] lg:gap-12">
-            <div className="space-y-6">
-              <FadeIn delay={0.18}>
-                <div className="overflow-hidden rounded-xl border border-[rgba(26,43,109,0.08)] bg-[#080d24] text-white shadow-[var(--shadow-md)]">
-                  <div className="px-7 pt-7 pb-4">
-                    <div>
-                      <span className="block text-xs font-bold uppercase tracking-[0.14em] text-white/58">
-                        Install performance graph
-                      </span>
-                      <strong className="mt-2 block text-2xl font-bold leading-tight">
-                        Ox Glass finishes the job 3x quicker than anybody else
-                        — done right the first time.
-                      </strong>
-                    </div>
+          <div className="grid items-stretch gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(340px,0.62fr)] lg:gap-12">
+            <FadeIn delay={0.1} className="h-full">
+              <div className="grid h-full gap-px overflow-hidden rounded-xl border border-[rgba(26,43,109,0.08)] bg-[rgba(26,43,109,0.08)] shadow-[var(--shadow-md)] sm:grid-cols-2">
+                {SCHEDULE_POINTS.map((point) => (
+                  <div key={point.title} className="flex flex-col gap-4 bg-white p-7">
+                    <div className="ox-icon-tile">{point.icon}</div>
+                    <h3 className="text-lg font-bold leading-snug text-slate-950">
+                      {point.title}
+                    </h3>
+                    <p className="text-sm leading-7 text-[var(--text-secondary)]">
+                      {point.desc}
+                    </p>
                   </div>
-
-                  <svg
-                    aria-hidden="true"
-                    className="block h-[270px] w-full"
-                    viewBox="0 0 680 270"
-                    preserveAspectRatio="none"
-                  >
-                    <defs>
-                      <linearGradient
-                        id="ox-speed-fill"
-                        x1="0"
-                        x2="0"
-                        y1="0"
-                        y2="1"
-                      >
-                        <stop offset="0%" stopColor="rgba(255,255,255,0.24)" />
-                        <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-                      </linearGradient>
-                    </defs>
-                    <path
-                      d="M0 28 V232 H680"
-                      fill="none"
-                      stroke="rgba(255,255,255,0.18)"
-                      strokeWidth="1"
-                    />
-                    {[62, 108, 154, 200, 232].map((y) => (
-                      <path
-                        key={y}
-                        d={`M0 ${y} H680`}
-                        fill="none"
-                        stroke="rgba(255,255,255,0.08)"
-                        strokeWidth="1"
-                      />
-                    ))}
-                    <motion.path
-                      d="M0 226 C130 222 245 216 340 207 C470 195 575 185 680 178"
-                      fill="none"
-                      stroke="rgba(255,255,255,0.44)"
-                      strokeLinecap="butt"
-                      strokeWidth="2"
-                      initial={{ pathLength: reduceMotion ? 1 : 0 }}
-                      whileInView={{
-                        pathLength: reduceMotion ? 1 : [0, 0.35, 0.52, 1],
-                      }}
-                      viewport={{ once: false, amount: 0.7 }}
-                      transition={{
-                        duration: reduceMotion ? 0.01 : 7.8,
-                        times: [0, 0.22, 0.68, 1],
-                        ease: "easeInOut",
-                      }}
-                    />
-                    <motion.path
-                      d="M0 238 C110 226 170 185 238 132 C330 60 450 25 680 10"
-                      fill="none"
-                      stroke="#ffffff"
-                      strokeLinecap="butt"
-                      strokeWidth="3"
-                      initial={{ pathLength: reduceMotion ? 1 : 0 }}
-                      whileInView={{
-                        pathLength: reduceMotion ? 1 : [0, 0.36, 0.5, 1],
-                      }}
-                      viewport={{ once: false, amount: 0.7 }}
-                      transition={{
-                        duration: reduceMotion ? 0.01 : 5.8,
-                        times: [0, 0.2, 0.7, 1],
-                        ease: "easeInOut",
-                      }}
-                    />
-                    <motion.path
-                      d="M0 238 C110 226 170 185 238 132 C330 60 450 25 680 10 L680 232 H0 Z"
-                      fill="url(#ox-speed-fill)"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: false, amount: 0.7 }}
-                      transition={{
-                        duration: reduceMotion ? 0.01 : 5.8,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  </svg>
-
-                  <div className="flex flex-wrap items-center gap-x-7 gap-y-3 px-7 pb-7 text-xs font-bold uppercase tracking-[0.1em]">
-                    <span className="inline-flex items-center gap-2 text-white">
-                      <span className="h-2.5 w-2.5 rounded-full bg-white" />
-                      Ox Glass
-                    </span>
-                    <span className="inline-flex items-center gap-2 text-white/48">
-                      <span className="h-2.5 w-2.5 rounded-full bg-white/44" />
-                      Other window installers
-                    </span>
-                  </div>
-                </div>
-              </FadeIn>
-
-              <div className="grid gap-5 sm:grid-cols-3">
-                {SPEED_PROOF_POINTS.map((point, i) => (
-                  <FadeIn key={point.title} delay={i * 0.08}>
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center text-[var(--navy)]">
-                        {point.icon}
-                      </div>
-                      <h3 className="text-sm font-bold leading-snug text-slate-950">
-                        {point.title}
-                      </h3>
-                    </div>
-                  </FadeIn>
                 ))}
               </div>
-            </div>
+            </FadeIn>
 
-            <FadeIn direction="left" delay={0.15}>
-              <div className="overflow-hidden rounded-xl border border-[rgba(26,43,109,0.08)] bg-white shadow-[var(--shadow-md)]">
+            <FadeIn direction="left" delay={0.15} className="h-full">
+              <div className="h-full overflow-hidden rounded-xl border border-[rgba(26,43,109,0.08)] bg-[#080d24] shadow-[var(--shadow-md)]">
                 <video
                   src="/images/general/website%20install%20work.mp4"
-                  className="h-[360px] w-full object-cover lg:h-[420px]"
+                  className="h-full min-h-[360px] w-full object-cover"
                   autoPlay
                   muted
                   loop
                   playsInline
                   preload="metadata"
-                  aria-label="Ox Glass window installation video"
+                  aria-label="Ox Glass crews installing windows on a new construction project"
                 />
               </div>
             </FadeIn>
@@ -444,7 +322,7 @@ export default function Home() {
             <div className="mb-12 grid items-end gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(320px,0.75fr)]">
               <div>
                 <Eyebrow>What We Do</Eyebrow>
-                <h2 className="ox-title-lg">Commercial Glass Solutions</h2>
+                <h2 className="ox-title-lg">Window & Glass Installation Services</h2>
               </div>
             </div>
           </FadeIn>
@@ -457,6 +335,7 @@ export default function Home() {
               <img
                 src="/images/projects/sanctuary/099ccdfeb3508144c5e52b2852d50625c-f2701462556rd-w2048_h1536.webp"
                 alt="Commercial glass installation on a multifamily project"
+                loading="lazy"
                 className="h-60 w-full shrink-0 object-cover lg:h-auto lg:min-h-0 lg:flex-1"
               />
               <div className="flex flex-col gap-4 p-8">
@@ -498,6 +377,7 @@ export default function Home() {
                       <img
                         src={svc.img}
                         alt={svc.title}
+                        loading="lazy"
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.08]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
@@ -510,13 +390,9 @@ export default function Home() {
                           className="-translate-x-2 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100"
                         />
                       </h3>
-                      <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 group-hover:grid-rows-[1fr] group-hover:opacity-100">
-                        <span className="overflow-hidden text-[0.68rem] font-bold uppercase leading-4 tracking-[0.06em] text-[var(--navy)]">
-                          <span className="mt-4 block border-t border-slate-100 pt-3">
-                            {svc.fit}
-                          </span>
-                        </span>
-                      </div>
+                      <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
+                        {svc.fit}
+                      </p>
                     </div>
                   </Link>
                 </FadeIn>
@@ -630,8 +506,8 @@ export default function Home() {
                 Our 5-Point Value Engineering Process
               </h2>
               <p className="ox-body mt-5 max-w-2xl">
-                We have refined our process over two decades of new construction
-                partnerships. Every project follows a clear framework designed
+                We have refined this process over a decade of new construction
+                partnerships. Every project follows the same five steps, built
                 to protect timeline, budget, and final product quality.
               </p>
 
@@ -639,17 +515,18 @@ export default function Home() {
                 {PROCESS_STEPS.map((step) => (
                   <li
                     key={step.num}
-                    className="group cursor-default rounded-xl px-4 py-3 transition hover:bg-white hover:shadow-[var(--shadow-sm)]"
+                    className="group cursor-default rounded-xl px-4 py-3 transition hover:bg-white hover:shadow-[var(--shadow-sm)] focus-within:bg-white focus-within:shadow-[var(--shadow-sm)]"
+                    tabIndex={0}
                   >
                     <div className="flex items-center gap-4">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--navy)]/20 text-sm font-bold text-[var(--navy)] transition group-hover:border-[var(--navy)] group-hover:bg-[var(--navy)] group-hover:text-white">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--navy)]/20 text-sm font-bold text-[var(--navy)] transition group-hover:border-[var(--navy)] group-hover:bg-[var(--navy)] group-hover:text-white group-focus-within:border-[var(--navy)] group-focus-within:bg-[var(--navy)] group-focus-within:text-white">
                         {step.num}
                       </span>
                       <h3 className="text-base font-bold text-slate-950">
                         {step.title}
                       </h3>
                     </div>
-                    <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr]">
+                    <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr]">
                       <div className="overflow-hidden">
                         <p className="pl-[3.25rem] pt-2 text-sm leading-6 text-[var(--text-secondary)]">
                           {step.desc}
@@ -670,6 +547,7 @@ export default function Home() {
                 <img
                   src="/images/projects/citizen/the_citizen_pool_fromdeck.jpg"
                   alt="Completed multifamily new construction project with pool courtyard"
+                  loading="lazy"
                   className="h-[560px] w-full object-cover"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080d24]/55 to-transparent" />
@@ -707,17 +585,16 @@ export default function Home() {
                   <img
                     src={item.coverImage}
                     alt={item.title}
+                    loading="lazy"
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#080d24]/90 to-transparent p-6 text-white">
                     <span className="block text-lg font-bold">
                       {item.title}
                     </span>
-                    {item.location && (
-                      <span className="mt-1 block text-xs font-bold uppercase tracking-[0.12em] text-white/62">
-                        {item.location}
-                      </span>
-                    )}
+                    <span className="mt-1 block text-xs font-bold uppercase tracking-[0.12em] text-white/62">
+                      {item.productLine ?? item.location ?? "New Construction"}
+                    </span>
                   </div>
                 </Link>
               </FadeIn>
@@ -765,11 +642,11 @@ export default function Home() {
               project, every client, every time."
             </blockquote>
             <p className="mt-6 text-sm italic text-white/55">
-              The Ox Glass Team
+              The {COMPANY.name} Team
             </p>
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link to="/contact" className="ox-btn-light">
-                Hire Us <ArrowRight size={16} />
+                Request a Bid <ArrowRight size={16} />
               </Link>
               <Link
                 to="/gallery"

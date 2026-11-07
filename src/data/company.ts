@@ -105,3 +105,42 @@ export const FAQS: FaqItem[] = [
       'Send us your plans, unit counts, and schedule through our contact form or by email, and one of our estimators will get back to you with the right product and pricing for your build.',
   },
 ]
+
+// Years in business, rounded down to the nearest five for a "10+" style label.
+const yearsActive = new Date().getFullYear() - COMPANY.foundedYear
+export const YEARS_LABEL = `${Math.max(5, Math.floor(yearsActive / 5) * 5)}+`
+
+export interface ProcessStep {
+  num: string
+  title: string
+  desc: string
+}
+
+// The 5-Point Value Engineering process, shared by Home, Windows, and New Construction.
+export const PROCESS_STEPS: ProcessStep[] = [
+  {
+    num: '01',
+    title: 'Bid & Value Engineering',
+    desc: 'Our pre-production team logs your project and sets a meeting with our lead estimator. We review plans, specs, and renderings and come back with RFIs, recommendations, and price comparisons before you commit to anything.',
+  },
+  {
+    num: '02',
+    title: 'Estimate & Award',
+    desc: 'Once RFIs and addenda are settled, you get a complete cost estimate with clear scope and options to consider. When we are awarded the work, price and scope are confirmed before submittals begin.',
+  },
+  {
+    num: '03',
+    title: 'Submittals & Shop Drawings',
+    desc: 'Our pre-production manager sends finalized submittals, then walks you through design, shop drawings, manufacturer testing, and layouts, so the product we order is exactly the product you approved.',
+  },
+  {
+    num: '04',
+    title: 'Production Planning',
+    desc: 'Before product ships, we meet on site to plan dates, deliveries, machinery, and access. Material is ordered to match your schedule, and we confirm your start date a week before crews arrive.',
+  },
+  {
+    num: '05',
+    title: 'Installation & Closeout',
+    desc: 'Foreman-led crews install with a field supervisor over every job and a progress report in your inbox each week. We finish with a punch walk and a closeout QC meeting, and we are not done until every opening is.',
+  },
+]

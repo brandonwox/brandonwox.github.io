@@ -1,7 +1,9 @@
-import { ArrowLeft, Building2, CheckCircle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Building2, CheckCircle } from 'lucide-react'
 import { type ReactElement } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import FadeIn from '../components/ui/FadeIn'
+import PageCTA from '../components/ui/PageCTA'
+import PageMeta from '../components/ui/PageMeta'
 import { PROJECTS } from '../data/projects'
 
 interface ProjectFact {
@@ -12,11 +14,15 @@ interface ProjectFact {
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>()
-  const project = PROJECTS.find((p) => p.id === id)
+  const index = PROJECTS.findIndex((p) => p.id === id)
+  const project = index >= 0 ? PROJECTS[index] : undefined
+  const prev = index > 0 ? PROJECTS[index - 1] : undefined
+  const next = index >= 0 && index < PROJECTS.length - 1 ? PROJECTS[index + 1] : undefined
 
   if (!project) {
     return (
       <div className="bg-[#f5f7fb] pt-20">
+        <PageMeta title="Project Not Found" />
         <section className="ox-section">
           <div className="ox-container text-center">
             <h1 className="ox-title-lg">Project not found.</h1>
@@ -63,6 +69,13 @@ export default function ProjectDetail() {
 
   return (
     <div className="bg-[#f5f7fb] pt-20">
+      <PageMeta
+        title={project.title}
+        description={
+          project.description?.[0] ??
+          `${project.title}: window and glass installation by Ox Glass on a Utah new construction project.`
+        }
+      />
       <section className="ox-section">
         <div className="ox-container">
           <Link
@@ -74,13 +87,15 @@ export default function ProjectDetail() {
 
           <FadeIn className="mb-12">
             <h1 className="ox-title-xl">{project.title}</h1>
-            {project.location && <p className="ox-subtitle mt-3">{project.location}</p>}
+            <p className="ox-subtitle mt-3">
+              {[project.location, project.productLine ?? 'Window & Glass Installation'].filter(Boolean).join(' · ')}
+            </p>
           </FadeIn>
 
           <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr]">
             <FadeIn direction="right">
               <div className="overflow-hidden rounded-2xl shadow-[var(--shadow-lg)]">
-                <img src={project.coverImage} alt={project.title} className="max-h-[560px] w-full object-cover" />
+                <img src={project.coverImage} alt={project.title} fetchPriority="high" className="max-h-[560px] w-full object-cover" />
               </div>
             </FadeIn>
 
@@ -129,19 +144,59 @@ export default function ProjectDetail() {
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {project.images.map((img, index) => (
-              <FadeIn key={img} delay={index * 0.06}>
+              <FadeIn key={img} delay={Math.min(index, 5) * 0.06}>
                 <div className="overflow-hidden rounded-xl shadow-[var(--shadow-sm)]">
                   <img
                     src={img}
                     alt={`${project.title} - photo ${index + 1}`}
+                    loading="lazy"
                     className="aspect-[4/3] w-full object-cover transition duration-500 hover:scale-105"
                   />
                 </div>
               </FadeIn>
             ))}
           </div>
+
+          <nav
+            aria-label="More projects"
+            className="mt-14 grid gap-4 border-t border-slate-200 pt-8 sm:grid-cols-2"
+          >
+            {prev ? (
+              <Link
+                to={`/projects/${prev.id}`}
+                className="group flex items-center gap-3 rounded-xl border border-[rgba(26,43,109,0.08)] p-4 transition hover:border-[var(--navy)]"
+              >
+                <ArrowLeft size={18} className="shrink-0 text-[var(--navy)] transition group-hover:-translate-x-1" />
+                <span>
+                  <span className="block text-xs font-bold uppercase tracking-[0.12em] text-[var(--text-muted)]">Previous</span>
+                  <span className="block font-bold text-slate-950">{prev.title}</span>
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {next && (
+              <Link
+                to={`/projects/${next.id}`}
+                className="group flex items-center justify-end gap-3 rounded-xl border border-[rgba(26,43,109,0.08)] p-4 text-right transition hover:border-[var(--navy)]"
+              >
+                <span>
+                  <span className="block text-xs font-bold uppercase tracking-[0.12em] text-[var(--text-muted)]">Next</span>
+                  <span className="block font-bold text-slate-950">{next.title}</span>
+                </span>
+                <ArrowRight size={18} className="shrink-0 text-[var(--navy)] transition group-hover:translate-x-1" />
+              </Link>
+            )}
+          </nav>
         </div>
       </section>
+
+      <PageCTA
+        eyebrow="Your Project"
+        heading="Planning something similar?"
+        subtext="Send us your plans, unit counts, and schedule and one of our estimators will come back with product options and pricing."
+        image={project.coverImage}
+      />
     </div>
   )
 }

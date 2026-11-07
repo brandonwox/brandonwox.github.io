@@ -1,26 +1,69 @@
-import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import { CheckCircle, Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import FadeIn from "../components/ui/FadeIn";
+import PageMeta from "../components/ui/PageMeta";
 import { LOCATIONS } from "../data/company";
 
 const fieldClass = "ox-field";
+const HQ = LOCATIONS[0];
 
 const MAP_SRC =
   "https://www.google.com/maps?q=305%20South%20850%20East%2C%20Lehi%2C%20UT%2084043&output=embed";
 
+const SERVICE_OPTIONS = [
+  "Windows",
+  "New Construction",
+  "Mirrors",
+  "Storefronts",
+  "Shower Glass Doors",
+  "Multiple Scopes",
+  "Other",
+];
+
 export default function Contact() {
+  const [sent, setSent] = useState(false);
+
+  // This is a static site with no backend, so the form composes an email to
+  // the bids inbox in the visitor's mail app instead of silently doing nothing.
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const company = String(data.get("company") ?? "").trim();
+    const service = String(data.get("service") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
+
+    const subject = `Website inquiry: ${service || "General"}${company ? ` - ${company}` : ""}`;
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      company ? `Company / Builder: ${company}` : null,
+      `Service needed: ${service}`,
+      "",
+      message,
+    ]
+      .filter((line) => line !== null)
+      .join("\n");
+
+    window.location.href = `mailto:${HQ.email}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+    setSent(true);
+  };
+
   return (
     <div className="bg-white pt-20">
+      <PageMeta
+        title="Contact Us"
+        description={`Request a bid from Ox Glass. Call ${HQ.phones[0]}, email ${HQ.email}, or send your plans, unit counts, and schedule through our contact form.`}
+      />
       <section className="ox-section">
         <div className="ox-container">
           <FadeIn className="mx-auto mb-16 max-w-3xl text-center">
-            <span className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-[var(--navy)]">
-              <span className="h-0.5 w-7 rounded-full bg-[var(--navy)]" />
-              Get in Touch
-            </span>
-            <h1 className="font-[var(--font-display)] text-[clamp(2.4rem,5vw,4rem)] font-semibold leading-tight text-slate-950">
-              Contact Us
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-[var(--text-secondary)]">
+            <span className="ox-eyebrow">Get in Touch</span>
+            <h1 className="ox-title-xl">Request a Bid</h1>
+            <p className="ox-subtitle mx-auto mt-4 max-w-2xl">
               Reach out by phone, email, or the form below and one of our
               estimators will get back to you. Send your plans, unit counts, and
               schedule and we'll match the right product to your build.
@@ -109,11 +152,15 @@ export default function Contact() {
             <FadeIn direction="left">
               <form
                 className="rounded-2xl border border-[rgba(26,43,109,0.08)] bg-[#f7f9fd] p-8 shadow-[var(--shadow-md)] lg:p-10"
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
               >
-                <h2 className="mb-6 font-[var(--font-display)] text-3xl font-semibold text-slate-950">
+                <h2 className="mb-2 font-[var(--font-display)] text-3xl font-semibold text-slate-950">
                   Send a Message
                 </h2>
+                <p className="mb-6 text-sm leading-6 text-[var(--text-secondary)]">
+                  Submitting opens a pre-filled email to {HQ.email} in your mail
+                  app. Attach plans there if you have them.
+                </p>
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
@@ -126,8 +173,11 @@ export default function Contact() {
                     <input
                       type="text"
                       id="name"
+                      name="name"
+                      autoComplete="name"
+                      required
                       className={fieldClass}
-                      placeholder="John Doe"
+                      placeholder="Your name"
                     />
                   </div>
                   <div>
@@ -140,8 +190,11 @@ export default function Contact() {
                     <input
                       type="email"
                       id="email"
+                      name="email"
+                      autoComplete="email"
+                      required
                       className={fieldClass}
-                      placeholder="john@example.com"
+                      placeholder="you@company.com"
                     />
                   </div>
                 </div>
@@ -157,6 +210,8 @@ export default function Contact() {
                     <input
                       type="text"
                       id="company"
+                      name="company"
+                      autoComplete="organization"
                       className={fieldClass}
                       placeholder="Optional"
                     />
@@ -168,14 +223,21 @@ export default function Contact() {
                     >
                       Service Needed
                     </label>
-                    <select id="service" className={fieldClass}>
-                      <option>Windows</option>
-                      <option>New Construction</option>
-                      <option>Mirrors</option>
-                      <option>Storefronts</option>
-                      <option>Shower Glass Doors</option>
-                      <option>Commercial Projects</option>
-                      <option>Other</option>
+                    <select
+                      id="service"
+                      name="service"
+                      required
+                      defaultValue=""
+                      className={fieldClass}
+                    >
+                      <option value="" disabled>
+                        Select a service
+                      </option>
+                      {SERVICE_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -189,9 +251,11 @@ export default function Contact() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={5}
+                    required
                     className={`${fieldClass} resize-y`}
-                    placeholder="Tell us about your project — scope, unit counts, and schedule..."
+                    placeholder="Tell us about your project: scope, unit counts, location, and schedule."
                   />
                 </div>
 
@@ -201,6 +265,30 @@ export default function Contact() {
                 >
                   Send Message <Send size={18} />
                 </button>
+
+                {sent && (
+                  <div
+                    role="status"
+                    className="mt-5 flex items-start gap-3 rounded-lg border border-[rgba(26,43,109,0.12)] bg-white px-4 py-3 text-sm leading-6 text-slate-800"
+                  >
+                    <CheckCircle size={18} className="mt-1 shrink-0 text-[var(--navy)]" />
+                    <span>
+                      Your email app should have opened with your message ready to send.
+                      If it didn't, email us directly at{" "}
+                      <a className="font-semibold text-[var(--navy)]" href={`mailto:${HQ.email}`}>
+                        {HQ.email}
+                      </a>{" "}
+                      or call{" "}
+                      <a
+                        className="font-semibold text-[var(--navy)]"
+                        href={`tel:${HQ.phones[0].replace(/\D/g, "")}`}
+                      >
+                        {HQ.phones[0]}
+                      </a>
+                      .
+                    </span>
+                  </div>
+                )}
               </form>
             </FadeIn>
           </div>
